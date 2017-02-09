@@ -32,6 +32,3 @@ Install commands (copy all in one line):
 
   # git clone https://github.com/vidurous/rhel-labs && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui
 
-  At the moment the application will download the iso archives, check their md5sum, and untar 
-  these isos. Currently you must run 'lab-tui' from /home/root/bin as the root user.
-
