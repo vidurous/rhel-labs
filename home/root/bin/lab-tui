@@ -122,16 +122,12 @@ fi
     		reset && exit || echo "Program has failed to exit"
 	elif [ "$choice" = "Back" ]; then
 		rm -f /home/root/rhel-labs/.install/.lab-tui-Server && exec /home/root/bin/lab-tui || echo "Entering the /home/root/bin/lab-tui-server menu has failed, please check the /home/root/bin/lab-tui-server dialog menu"
-
     	elif [ "$choice" = "Install" ]; then
     		/home/root/bin/initialize-lab clone && /home/root/bin/initialize-lab labmd5 && /home/root/bin/initialize-lab tar && exec /home/root/bin/lab-tui || echo "Downloading the lab has failed, please check the /home/root/bin/lab-tui-build script"
-
     	elif [ "$choice" = "Install VM" ]; then
 		/home/root/bin/initialize-lab server_1 && /home/root/bin/initialize-lab server_2 && /home/root/bin/initialize-lab server_3 && /home/root/bin/initialize-lab server_4 && sleep 5 && exec /home/root/bin/lab-tui || echo "Failed to install VM Server stage 1 through 4"
-
     	elif [ "$choice" = "Labs" ]; then
     		/home/root/bin/lab-tui-labs || echo "Entering the /home/$USER/bin/lab-tui-labs menu has failed, please check the /home/root/bin/lab-tui-labs script"
-
     	elif [ "$choice" = "Server" ]; then
     		touch /home/root/rhel-labs/.install/.lab-tui-Server && exec /home/root/bin/lab-tui || rm -f /home/root/rhel-labs/.install/.lab-tui-Server && echo "Entering the /home/root/bin/lab-tui-server menu has failed, please check the /home/root/bin/lab-tui-server dialog menu"
 	elif [ "$choice" = "Reboot" ]; then
