@@ -515,7 +515,7 @@ cat > /usr/share/libvirt/networks/rhel-labs.xml << EOF
 <network>
   <name>rhel-labs</name>
   <forward mode='nat'/>
-  <bridge name="rhel-lab0"/>
+  <bridge name="rhel-labs"/>
   <forward/>
   <ip address="192.168.142.1" netmask="255.255.255.0">
     <dhcp>
