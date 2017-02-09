@@ -115,7 +115,7 @@ fi
 	elif [ "$choice" = "Reboot" ]; then
 		/home/root/bin/initialize-lab __serverreboot && exec /home/root/bin/lab-tui || echo "failed to run __serverreboot check functions" && reset
         elif [ "$choice" = "Stop" ]; then
-                /home/root/bin/initialize-lab __serverstop && exec /home/root/bin/lab-tui || echo "failed to run __serverstop check functions" && reset
+                /home/root/bin/initialize-lab __serverstop && sleep 1 && exec /home/root/bin/lab-tui || echo "failed to run __serverstop check functions" && reset
         elif [ "$choice" = "Start" ]; then
                 /home/root/bin/initialize-lab __serverstart && exec /home/root/bin/lab-tui || echo "failed to run __serverstart check functions" && reset
         elif [ "$choice" = "Console" ]; then

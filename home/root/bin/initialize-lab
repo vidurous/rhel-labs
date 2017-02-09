@@ -260,7 +260,6 @@ done )|
 }
 
 
-
 __serverreboot() {
 DIALOG=${DIALOG=dialog}
 export HOME=/home/root/rhel-labs/.install
@@ -324,7 +323,7 @@ trap "rm -f $xx" 0 1 2 5 15
 proc="ps auxx|grep -v grep|grep virt-viewer|grep -o server.example.com|wc -l"
 virtcheck=$(virsh list --all|grep server.example.com|awk '{print $3}'|grep "running"|wc -l)
 virshcheck=$(systemctl status libvirtd|grep -o "active (running)"|wc -l)
-virtstop="virsh --connect qemu:///system destroy server.example.com"
+virtstop=$(virsh --connect qemu:///system destroy server.example.com)
 
 if [[ "$virtcheck" == "0" ]]; then
 exit
@@ -333,8 +332,7 @@ elif [[ "$virtcheck"="1" ]]; then
 percentage="100"
 $virtstop 2>/dev/null
 sleep 1
-echo 100
-sleep 1
+echo $percentage
 exit
 fi
 #percentage=$(expr $percentage + 1)
@@ -373,7 +371,7 @@ exit
 elif [[ "$virtcheck"="1" ]] && [[ "$virshcheck"="1" ]]; then
 percentage="100"
 $virtstart 2>/dev/null
-echo $percentage
+echo -n $percentage
 sleep 2
 exit
 fi
@@ -409,18 +407,17 @@ virshcheck=$(systemctl status libvirtd|grep -o "active (running)"|wc -l)
 virtconsole='virt-viewer --connect qemu:///system server.example.com'
 
 if [[ "$proc" == "1" ]]; then
-echo 100
+echo -n "100"
 exit
 
 
 elif [[ "$proc"="0" ]]; then
 percentage="100"
 $virtconsole 2>/dev/null
-echo 100
+echo $percentage
 sleep 2
 exit
 fi
-echo 100
 percentage=$(expr $percentage + 1)
 done )|
      $DIALOG --title "server.example.com" \
