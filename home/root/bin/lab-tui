@@ -7,25 +7,18 @@ P2CHECK="/dev/urandom"
 P3CHECK="chown -R qemu:qemu /home/root/rhel-labs/"
 P4CHECK="/home/root/rhel-labs/.storage"
 trap "rm -f $xx" 0 1 2 5 15
-
-
 # Inital directory check, if the wanted directories aren't present create them and change into each respective dir
 if [ ! -d "$P1CHECK" ]; then
 	mkdir -p $P1CHECK && mkdir -p $P4CHECK && $P3CHECK && cd $P1CHECK && echo "$P1CHECK created" || echo "Error making $P1CHECK"
-
 elif [ -d "$P1CHECK" ]; then
 	cd $P1CHECK && mkdir -p $P4CHECK && $P3CHECK|| echo "Error executing $P1CHECK and/or $P3CHECK"
-
 elif [ ! -d "$P2CHECK" ]; then
 	mknod -m 666 /dev/random c 1 8 || echo "failed making /dev/urandom check kernel support"
 	mknod -m 666 /dev/urandom c 1 9 || echo "failed making /dev/urandom check kernel support"
 	chown root:root /dev/random /dev/urandom || echo "failed chowning /dev/urandom to root"
-
 else
 	echo "$P1CHECK and $P2CHECK have been created"
 fi
-
-
 	if [ ! -f "$P1CHECK/.install-finished" ]; then
 		echo "checking for $P1CHECK/.install-finished"
 		USER="root"
@@ -59,7 +52,6 @@ fi
         		"Labs"  "Obtain graded lab execises based on chapters 1-16" \
 			"Install VM"  "Install Server VM (NOT INSTALLED)" 2> $xx || echo "Failed to start lab-tui stage 2"
 
-
         elif [[ -f "$P1CHECK/.install-finished" ]] && [[ -f "$P1CHECK/.server-installed" ]] && [[ ! -f "$P1CHECK/.lab-tui-Server" ]] && [[ -f $P4CHECK/server.img ]]; then
 		USER="root"
 		export HOME="/home/root/rhel-labs/.install"
@@ -77,8 +69,6 @@ fi
 			"Labs"  "Obtain graded lab execises based on chapters 1-16" \
 			"Server"  "Server VM (INSTALLED)" 2> $xx || rm -f /home/root/rhel-labs/.install/.lab-tui-Server
 
-
-
         elif [[ -f "$P1CHECK/.install-finished" ]] && [[ -f "$P1CHECK/.server-installed" ]] && [[ -f "$P1CHECK/.lab-tui-Server" ]] && [[ -f $P4CHECK/server.img ]]; then
 		export HOME="/home/root/rhel-labs/.install"
 		USER="root"
@@ -94,18 +84,12 @@ fi
 			"Stop" "Stop server" \
 			"Reboot" "Reboot server" \
 			"Snapshot" "" 2> $xx || rm -f /home/root/rhel-labs/.install/.lab-tui-Server
-
-
-
-
 	else 
 	        echo "Unknown failure, all attempts to fix the lab have failed. Manually delete '/home/root/rhel-labs' resetting server to NOT INSTALLED, restart tui if needed" && exit
 	fi
-
 	retval=$?
 	choice=`cat $xx`
 	case $retval in
-
   	0)
     	#echo "'$choice' chosen."
 	;;
@@ -115,9 +99,7 @@ fi
   	255)
     	#echo "ESC pressed."
 	;;
-
 	esac
-
     	if [ "$choice" = "Exit" ]; then
     		reset && exit || echo "Program has failed to exit"
 	elif [ "$choice" = "Back" ]; then
