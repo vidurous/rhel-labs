@@ -371,7 +371,7 @@ exit
 elif [[ "$virtcheck"="1" ]] && [[ "$virshcheck"="1" ]]; then
 percentage="100"
 $virtstart 2>/dev/null
-echo -n $percentage
+echo $percentage
 sleep 2
 exit
 fi
