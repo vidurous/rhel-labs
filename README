@@ -34,26 +34,26 @@ Install commands (copy all in one line):
 
 ToDo:
 
-additional testing of encryption methods and how the application delivers a lab users a grading script; honest grading and attempt count are highest priority and currently I have a working method to deal with both.
+Additional testing of encryption methods and how the application delivers a lab users a grading script; honest grading and attempt count are highest priority and currently I have a working method to deal with both.
 
-intergrate delivery of completed lab exercises to the grading server(code coming soon) presenting the results on a dynamic python flask webpage 
+Intergrate delivery of completed lab exercises to the grading server(code coming soon) presenting the results on a dynamic python flask webpage 
 
-menu design for desktop.example.com that mirrors server.example.com
+Menu design for desktop.example.com that mirrors server.example.com
 
-changes to the server.example.com cloud image with internal snapshots (possibly re-provisioned using implantisomd5)
+Changes to the server.example.com cloud image with internal snapshots (possibly re-provisioned using implantisomd5)
 
-snapshot functionality for server.example.com
+Snapshot functionality for server.example.com
 
-lab intergration of the tui based on dynamic state files
+Lab intergration of the tui based on dynamic state files
 
-all current error handling logic migrated to proper error functions in initialize-lab
+All current error handling logic migrated to proper error functions in initialize-lab
 
-screenshots and video overview added to README
+Screenshots and video overview added to README
 
-adpative server functionality menu based on dynamic state files
+Adpative server functionality menu based on dynamic state files
 
-set -e failed function review 
+Set -e failed function review 
 
-some type of consistent logging for traps
+Some type of consistent logging for traps
 
-- proper formatting for both lab-tui and initialize-lab 
+Proper formatting for both lab-tui and initialize-lab 
