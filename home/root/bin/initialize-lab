@@ -1,0 +1,571 @@
+#!/bin/bash
+
+__labdownload() {
+	percentage="0"
+	DIALOG=${DIALOG=dialog}
+	export HOME=/home/root/rhel-labs/.install
+	xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.wget$$
+	loc="http://irondung.net:8120/training/RHEL7.2-HOMELAB.tar.gz"
+	trap "rm -f $xx" 0 1 2 5 15
+	cd $HOME/ || mkdir -p $HOME && cd $HOME || echo "Failed to create $HOME, check clone function"
+	proc=$(ps auxx | grep -v grep | grep -e "wget")
+	size=`ls -li|grep -e "RHEL7.2-HOMELAB.tar.gz$"|awk '{print $6}'`
+
+	if [[ -f $HOME/.md5pass ]]; then
+        	percentage="100"
+	elif [[ "$size" == "2560604621" ]]; then
+		percentage="100"
+	else
+        	wget -c -b "$loc" -o "$xx" || echo "Failed to start wget"
+	fi
+
+	(while (true)
+	do  
+            proc=$(ps auxx | grep -v grep | grep -e "wget")
+	    if [[ "$proc" == "" ]] && [[ "$percentage"="100" ]]; then
+	    echo 100
+ 	    sleep 2
+	    exit
+	    fi
+	    percentage="0"
+	    sleep 1
+	    percentage=$(tail -n2 $xx |grep -o [0-9][0-9]% |grep -o [0-9][0-9] || tail -n2 $xx | grep -o [0-9]% | grep -o [0-9] || tail -n2 $xx | grep -o [0-9][0-9][0-9]% | grep -o [0-9][0-9][0-9] || tail -n5 $xx | grep -o [0-9][0-9][0-9]% | grep -o [0-9][0-9][0-9] || echo "failed to parse wget check clone function percentage loop syntax"; exit)
+	    static=$percentage
+	    sleep 1
+	    echo $static
+    	    done
+	    )| 
+	    $DIALOG --title "Downloading Archive:" \
+		    --gauge " \n
+	    RHEL7.2-HOMELAB.tar.gz (2.4G) >> (20 G) \n
+	    " 10 70 0 || ps auxx | grep -v grep | egrep -i "wget|clone"|awk '{print $2}'|xargs kill -9 || echo "Failed to start clone, check functions"
+}
+
+__labmd5() {
+	percentage="0"
+	DIALOG=${DIALOG=dialog}
+	export HOME=/home/root/rhel-labs/.install
+	xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.wgetmd5$$
+	trap "rm -f $xx" 0 1 2 5 15
+	loc="http://irondung.net:8120/training/RHEL7.2-HOMELAB.tar.gz_md5sum"			    
+	cd $HOME/ || mkdir -p $HOME && cd $HOME || echo "Failed to create $HOME, check clone function"
+	proc=$(ps auxx | grep -v grep | grep -e "wget")
+if [[ "$proc" == "" ]] && [[ -f $HOME/.md5pass ]] && [[ -f $HOME/.install-finished ]]; then
+	percentage="100"
+elif [[ ! -f $HOME/RHEL7.2-HOMELAB.tar.gz_md5sum ]] && [[ ! -f $HOME/.md5pass ]]; then
+
+	wget -c -b "$loc" -o "$xx" || echo "Failed to start wget"
+fi
+	(while (true)
+	do		
+	proc=$(ps auxx | grep -v grep | grep -e "wget")
+        if [[ "$proc" == "" ]] && [[ "$percentage"="100" ]]; then
+		echo 100
+		sleep 2
+		exit
+	fi
+	percentage="0"
+	sleep 1
+	percentage=$(tail -n2 $xx |grep -o [0-9][0-9]% |grep -o [0-9][0-9] || tail -n2 $xx | grep -o [0-9]% | grep -o [0-9] || tail -n2 $xx | grep -o [0-9][0-9][0-9]% | grep -o [0-9][0-9][0-9] || tail -n5 $xx | grep -o [0-9][0-9][0-9]% | grep -o [0-9][0-9][0-9] || echo "failed to parse wget check clone function percentage loop syntax"; exit)
+	static=$percentage
+	sleep 1
+	echo $static
+	done
+	)|
+	$DIALOG --title "Downloading Checksum:" \
+		--gauge " \n
+		RHEL7.2-HOMELAB.tar.gz_md5sum \n
+		" 10 70 0 || ps auxx | grep -v grep | egrep -i "wget|md5|tar" |awk '{print $2}'|xargs kill -9 || echo "Failed to start clone, check functions"
+
+		md5check=`touch md5sum_post && md5sum RHEL7.2-HOMELAB.tar.gz > md5sum_post`
+		sleep 2
+		md51=`cat md5sum_post |awk '{print $1}'`
+		md52=`cat RHEL7.2-HOMELAB.tar.gz_md5sum |awk '{print $1}'`
+
+        if [[ "$md51"="$md52" ]] && [[ ! -f $HOME/.md5pass ]];then
+		touch $HOME/.md5pass
+		exit
+	elif [[ "$md51"="$md52" ]] && [[ -f $HOME/.md5pass ]];then
+		exit
+	else
+		echo "md5sum check function failed to exit properly" && exit
+	fi
+	}
+
+__tarf() {
+		export HOME=/home/root/rhel-labs/.install
+		xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.tarmd5$$
+		trap "rm -f $xx" 0 1 2 5 15
+		unpack="tar xvf RHEL7.2-HOMELAB.tar.gz"
+		
+		cd $HOME/ || mkdir -p $HOME && cd $HOME || echo "Failed to create $HOME, check clone function"
+		#unpackp="% tar cvf - RHEL7.2-HOMELAB.tar.gz | pv -p -s ${SIZE}k"
+
+		md5check=`touch md5sum_post && md5sum RHEL7.2-HOMELAB.tar.gz > md5sum_post`
+		sleep 2
+		md51=`cat md5sum_post |awk '{print $1}'`
+		echo $md51
+		md52=`cat RHEL7.2-HOMELAB.tar.gz_md5sum |awk '{print $1}'`
+		echo $md52
+
+	if [[ "$md51"="$md52" ]] && [[ ! -f $HOME/.install-finished ]] && [[ -f $HOME/.md5pass ]]; then
+		percentage="0"
+		DIALOG=${DIALOG=dialog}
+		export HOME=/home/root/rhel-labs/.install
+		xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.tar$$
+		trap "rm -f $xx" 0 1 2 5 15
+		mkdir -p /home/root/rhel-labs/.storage && chown qemu:qemu -R /home/root/rhel-labs/.storage || echo "failed to create install dir"
+		cd $HOME/ || mkdir -p $HOME && cd $HOME || echo "Failed to create $HOME, check clone function"
+		
+	fi
+		(pv -L 5m -n RHEL7.2-HOMELAB.tar.gz | tar xzf - -C /home/root/rhel-labs/.storage/ ) 2>&1 | dialog --gauge " Extracting RHEL7.2-HOMELAB.tar.gz" 6 50 || ps auxx | grep -v grep | egrep -i "pv|tar" |awk '{print $2}'|xargs kill -9 || echo "failed to run tar function, check functions"
+		touch $HOME/.install-finished
+		exit
+}
+
+
+__servermd5() {
+        percentage="0"
+        DIALOG=${DIALOG=dialog}
+        export HOME=/home/root/rhel-labs/.storage
+        xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.wgetmd5server$$
+        trap "rm -f $xx" 0 1 2 5 15
+        loc="http://irondung.net:8120/training/.server.example.com_md5sum"
+        cd $HOME/ || mkdir -p $HOME && cd $HOME || echo "Failed to create $HOME, check clone function"
+        proc=$(ps auxx | grep -v grep |grep lab|grep -e "wget")
+if [[ "$proc" == "" ]] && [[ -f $HOME/.md5pass-server ]]; then
+        percentage="100"
+elif [[ ! -f $HOME/.server.example.com_md5sum ]] && [[ ! -f $HOME/.md5pass-server ]]; then
+	wget -c -b "$loc" -o "$xx" || echo "Failed to start wget"
+fi
+
+        (while (true)
+        do
+        proc=$(ps auxx | grep -v grep | grep -e "wget")
+        if [[ "$proc" == "" ]] && [[ "$percentage"="100" ]]; then
+                echo 100
+                sleep 2
+                exit
+        fi
+        percentage="0"
+        sleep 1
+        percentage=$(tail -n2 $xx |grep -o [0-9][0-9]% |grep -o [0-9][0-9] || tail -n2 $xx | grep -o [0-9]% | grep -o [0-9] || tail -n2 $xx | grep -o [0-9][0-9][0-9]% | grep -o [0-9][0-9][0-9] || tail -n5 $xx | grep -o [0-9][0-9][0-9]% | grep -o [0-9][0-9][0-9] || echo "failed to parse wget check clone function percentage loop syntax for server.example.com md5sum check"; exit)
+        static=$percentage
+        sleep 1
+        echo $static
+        done
+        )|
+        $DIALOG --title "Downloading Checksum:" \
+                --gauge " \n
+                .server.example.com_md5sum \n
+                " 10 70 0 || ps auxx | grep -v grep | egrep -i "wget|md5" |awk '{print $2}'|xargs kill -9 || echo "Failed to md5 check for server.example.com, check functions"
+
+                md5check=`touch .server.example.com_md5sum_post && md5sum server.img > .server.example.com_md5sum_post`
+                sleep 2
+                md51=`cat .server.example.com_md5sum_post |awk '{print $1}'`
+                md52=`cat .server.example.com_md5sum |awk '{print $1}'`
+
+        if [[ "$md51"="$md52" ]] && [[ ! -f $HOME/.md5pass-server ]];then
+                touch $HOME/.md5pass-server
+                exit
+        elif [[ "$md51"="$md52" ]] && [[ -f $HOME/.md5pass-server ]];then
+                exit
+        else
+                echo "server.example.com md5sum check function failed to exit properly" && exit
+        fi
+        }
+
+__server_install() {
+export HOME=/home/root/rhel-labs/.install
+xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.virt-install$$
+trap "rm -f $xx" 0 1 2 5 15
+mac=$(tr -dc A-F0-9 < /dev/urandom | head -c 10 | sed -r 's/(..)/\1:/g;s/:$//;s/^/02:/')
+virt-install \
+ --connect qemu:///system \
+ --virt-type kvm \
+ --name server.example.com \
+ --cpu host \
+ --vcpu 2 \
+ --ram 1024 \
+ --os-type=linux \
+ --os-variant=rhel7 \
+ --disk path=/home/root/rhel-labs/.storage/server.img,bus=virtio \
+ --network network=rhel-labs,mac=$mac \
+ --graphics spice \
+ --force \
+ --import 2>1 >$xx
+sleep 5
+check=`virsh list --all|grep -o server.example.com|wc -l`
+if [ "$check" == "1" ]; then
+	touch $HOME/.server-installed
+	exit 0
+fi
+}
+
+__servervirtinstall() {
+DIALOG=${DIALOG=dialog}
+export HOME=/home/root/rhel-labs/.install
+xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.virt-install$$
+trap "rm -f $xx" 0 1 2 5 15
+#netcheck=$(virsh net-list|grep rhel-labs|awk '{print $1}'| wc -l)
+virtcheck=`virsh list --all|grep -o server.example.com|wc -l`
+virshcheck=`systemctl status libvirtd|grep -o "active (running)"|wc -l`
+vmpwdown="virsh destroy server.example.com"
+vmdelete="virsh undefine server.example.com"
+#stordelete="virsh pool-define /home/root/rhel-labs/.storage/server.img"
+#netdelete=$(rm -f /usr/share/libvirt/networks/rhel-labs.xml && virsh net-destroy rhel-labs && touch $HOME/.virsh-network-removed )
+#rmstates=$(rm -f $HOME/{.virsh-network-removed,.virsh-virts-removed})
+cd $HOME/ || mkdir -p $HOME && cd $HOME || echo "Failed to create $HOME, check clone function"
+
+if [[ "$virshcheck"="1" ]]; then
+	$vmpwdown ; $vmdelete ; $stordelete || echo "Failed to destroy server.example.com"
+	echo "virsh preped for vm creation"
+	systemctl start libvirtd || echo "Failed to start libvirtd"
+	systemctl enable libvirtd || echo "Failed to enable libvirtd"
+fi
+
+(while (true)
+do
+DIALOG=${DIALOG=dialog}
+export HOME=/home/root/rhel-labs/.install
+xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.serverreboot_while$$
+trap "rm -f $xx" 0 1 2 5 15
+proc="ps auxx|grep -v grep|grep virt-viewer|grep -o server.example.com|wc -l"
+virtcheck=$(virsh list --all|grep -o server.example.com|wc -l)
+virshcheck=$(systemctl status libvirtd|grep -o "active (running)"|wc -l)
+
+if [[ "percentage"="100" ]] && [[ "$virshcheck" == "1" ]]; then
+sleep 2
+echo 98
+sleep 1
+echo 99
+sleep 1
+echo 100
+sleep 1
+exit
+percentage="0"
+elif [[ "$virtcheck"="0" ]] && [[ "$virshcheck"="1" ]]; then
+percentage="100"	
+exit
+fi
+sleep 1
+echo $percentage
+percentage=$(expr $percentage + 1)
+done )|
+     $DIALOG --title "Creating VM" \
+	     --gauge " \n
+             		virt-install: server.example.com \n
+	     " 10 70 0 || ps auxx|grep -v grep|grep -v vim|grep "lab"|grep server_3 |awk '{print $2}'|xargs kill -9 && exit || echo "virt-install while loop failed"
+
+}
+
+
+
+__serverreboot() {
+DIALOG=${DIALOG=dialog}
+export HOME=/home/root/rhel-labs/.install
+xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.virt-install$$
+trap "rm -f $xx" 0 1 2 5 15
+
+cd $HOME/ || mkdir -p $HOME && cd $HOME || echo "Failed to create $HOME, check clone function"
+percentage="0"
+
+(while (true)
+do
+
+DIALOG=${DIALOG=dialog}
+export HOME=/home/root/rhel-labs/.install
+xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.servervirt_while$$
+trap "rm -f $xx" 0 1 2 5 15
+proc="ps auxx|grep -v grep|grep virt-viewer|grep -o server.example.com|wc -l"
+virtcheck=$(virsh list --all|grep server.example.com|awk '{print $3}'|grep "running"| wc -l)
+virshcheck=$(systemctl status libvirtd|grep -o "active (running)"|wc -l)
+reboot='virsh --connect qemu:///system reboot server.example.com'
+
+if [[ "$virtcheck" == "0" ]]; then
+sleep 2
+echo 99
+sleep 1
+echo 100
+sleep 1
+exit
+
+
+elif [[ "$virtcheck"="1" ]] && [[ "$virshcheck"="1" ]]; then
+percentage="97"
+sleep 2 && $reboot 2>/dev/null
+fi
+sleep 1
+echo 98
+sleep 1
+echo 99
+sleep 1
+echo 100
+exit
+percentage=$(expr $percentage + 1)
+done )|
+     $DIALOG --title "server.example.com" \
+             --gauge " \n
+              		Rebooting.. \n
+             " 10 70 0 || ps auxx|grep -v grep|grep -v vim|grep "lab"|grep server_3 |awk '{print $2}'|xargs kill -9 || echo "virsh reboot  while loop failed"
+}
+
+
+__serverstop() {
+DIALOG=${DIALOG=dialog}
+export HOME=/home/root/rhel-labs/.install
+xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.virt-install$$
+trap "rm -f $xx" 0 1 2 5 15
+
+cd $HOME/ || mkdir -p $HOME && cd $HOME || echo "Failed to create $HOME, check clone function"
+percentage="0"
+
+(while (true)
+do
+
+DIALOG=${DIALOG=dialog}
+export HOME=/home/root/rhel-labs/.install
+xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.servervirt_while$$
+trap "rm -f $xx" 0 1 2 5 15
+proc="ps auxx|grep -v grep|grep virt-viewer|grep -o server.example.com|wc -l"
+virtcheck=$(virsh list --all|grep server.example.com|awk '{print $3}'|grep "running"|wc -l)
+virshcheck=$(systemctl status libvirtd|grep -o "active (running)"|wc -l)
+virtstop='virsh --connect qemu:///system destroy server.example.com'
+
+if [[ "$virtcheck" == "0" ]]; then
+sleep 2
+echo 100
+sleep 1
+exit
+
+
+elif [[ "$virtcheck"="1" ]]; then
+percentage="100"
+$virtstop 2>/dev/null
+fi
+
+sleep 1
+echo $percentage
+percentage=$(expr $percentage + 1)
+done )|
+     $DIALOG --title "server.example.com" \
+             --gauge " \n
+              		Stopping.. \n
+             " 10 70 0 || ps auxx|grep -v grep|grep -v vim|grep "lab"|grep _serverreboot |awk '{print $2}'|xargs kill -9 && exit || echo "virsh reboot  while loop failed"
+}
+
+__serverstart() {
+DIALOG=${DIALOG=dialog}
+export HOME=/home/root/rhel-labs/.install
+xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.virt-install$$
+trap "rm -f $xx" 0 1 2 5 15
+
+cd $HOME/ || mkdir -p $HOME && cd $HOME || echo "Failed to create $HOME, check clone function"
+percentage="0"
+
+(while (true)
+do
+
+DIALOG=${DIALOG=dialog}
+export HOME=/home/root/rhel-labs/.install
+xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.servervirt_while$$
+trap "rm -f $xx" 0 1 2 5 15
+#proc="ps auxx|grep -v grep|grep virt-viewer|grep -o server.example.com|wc -l"
+virtcheck=$(virsh list --all|grep server.example.com|awk '{print $3}'|grep "running"|wc -l)
+virshcheck=$(systemctl status libvirtd|grep -o "active (running)"|wc -l)
+virtstart='virsh --connect qemu:///system start server.example.com'
+
+if [[ "$virtcheck" == "1" ]]; then
+sleep 2
+echo 100
+sleep 1
+exit
+
+
+elif [[ "$virtcheck"="1" ]] && [[ "$virshcheck"="1" ]]; then
+percentage="100"
+$virtstart 2>/dev/null
+fi
+sleep 1
+echo $percentage
+percentage=$(expr $percentage + 1)
+done )|
+     $DIALOG --title "server.example.com" \
+             --gauge " \n
+                      Starting.. \n
+             " 10 70 0 || ps auxx|grep -v grep|grep -v vim|grep "lab"|grep __serverstart |awk '{print $2}'|xargs kill -9 && exit || echo "virt-viewer while loop failed"
+
+}
+
+
+__serverconsole() {
+DIALOG=${DIALOG=dialog}
+export HOME=/home/root/rhel-labs/.install
+xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.virt-install$$
+trap "rm -f $xx" 0 1 2 5 15
+
+cd $HOME/ || mkdir -p $HOME && cd $HOME || echo "Failed to create $HOME, check clone function"
+percentage="0"
+
+(while (true)
+do
+
+DIALOG=${DIALOG=dialog}
+export HOME=/home/root/rhel-labs/.storage
+xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.storage/.servervirt_while$$
+trap "rm -f $xx" 0 1 2 5 15
+proc="ps auxx|grep -v grep|grep virt-viewer|grep -o server.example.com|wc -l"
+virtcheck=$(ps auxx|grep -v grep|grep -v vim|grep virt-viewer|grep -o server.example.com|wc -l)
+virshcheck=$(systemctl status libvirtd|grep -o "active (running)"|wc -l)
+virtconsole='virt-viewer --connect qemu:///system server.example.com'
+
+if [[ "$proc" == "1" ]]; then
+sleep 2
+echo 100
+sleep 1
+exit
+
+
+elif [[ "$proc"="0" ]]; then
+percentage="100"
+$virtconsole 2>/dev/null
+echo 100
+exit
+fi
+percentage=$(expr $percentage + 1)
+done )|
+     $DIALOG --title "server.example.com" \
+             --gauge " \n
+                        Opening a console.. \n
+             " 10 70 0 || ps auxx|grep -v grep|grep -v vim|grep virt-viewer|grep server.example.com|awk '{print $2}'|xargs kill -9 && exit || echo "virsh reboot  while loop failed"
+
+}
+
+
+__desktop_install() {
+printf "Spawning RHEL7.2 training desktop vm."
+desktop=desktop
+mac=`tr -dc A-F0-9 < /dev/urandom | head -c 10 | sed -r 's/(..)/\1:/g;s/:$//;s/^/02:/'`
+virt-install \
+ --connect qemu:///system \
+ --virt-type kvm \
+ --name $desktop \
+ --cpu host \
+ --vcpu 2 \
+ --ram 2048 \
+ --os-type=linux \
+ --os-variant=rhel7 \
+ --disk path=/$HOME/training/$desktop.img,bus=virtio \
+ --network network=default,mac=$mac \
+ --graphics spice \
+ --force \
+ --import
+}
+
+__servernetwork() {
+DIALOG=${DIALOG=dialog}
+export HOME=/home/root/rhel-labs/.install
+xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.servernetwork$$
+trap "rm -f $xx" 0 1 2 5 15
+netcheck=$(virsh net-list|grep rhel-labs|awk '{print $1}'| wc -l)
+virtcheck=$(virsh list --all|grep -o server.example.com|wc -l)
+virshcheck=$(systemctl status libvirtd|grep -o "active (running)"|wc -l)
+vmpwdown="virsh destroy server.example.com && virsh undefine server.example.com && touch $HOME/.virsh-virts-removed"
+vmdelete="virsh undefine server.example.com && touch $HOME/.virsh-virts-removed"
+netdelete="virsh net-destroy rhel-labs"
+rmstates="rm -f $HOME/{.virsh-network-removed,.virsh-virts-removed}"
+cd $HOME/ || mkdir -p $HOME && cd $HOME || echo "Failed to create $HOME, check clone function" 2>1 >> $xx
+
+# this will blow away the current virsh network domain no matter what for setup reasons
+echo "Setting up "rhel-labs" network domain." 2>1 >> $xx
+
+if [[ "$netcheck"="0" ]]; then
+$netdelete || echo "failed to destroy rhel-labs network" 2>1 >> $xx
+fi
+
+
+(while (true)
+do
+DIALOG=${DIALOG=dialog}
+export HOME=/home/root/rhel-labs/.install
+xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.servernetwork_while$$
+trap "rm -f $xx" 0 1 2 5 15
+proc=$(systemctl status libvirtd|grep -o "active (running)"| wc -l)
+proc2=$(virsh net-list|grep rhel-labs|grep -o "active"| wc -l)
+
+if [[ "$proc" == "0" ]]; then
+       systemctl start libvirtd || echo "failed to start libvirtd"
+       systemctl enable libvirtd || echo "failed to start libvirtd"
+elif [[ "$proc" == "1" ]] && [[ "$proc2" == "1" ]]; then
+# The process has finished. It is no longer running.
+# So slowly count the percentage down to 100%.
+sleep 2
+echo 98
+sleep 1
+echo 99
+sleep 1
+echo 100
+sleep 1
+exit
+
+percentage="0"
+elif [[ "$proc" == "1" ]] && [[ "$proc2" == "0" ]] && [[ "$percentage" -gt "0" ]]; then
+echo "generating /usr/share/libvirt/networks/rhel-labs.xml." 2&>1 >> $xx
+cat > /usr/share/libvirt/networks/rhel-labs.xml << EOF
+<network>
+  <name>rhel-labs</name>
+  <forward mode='nat'/>
+  <bridge name="rhel-lab0"/>
+  <forward/>
+  <ip address="192.168.142.1" netmask="255.255.255.0">
+    <dhcp>
+      <range start="192.168.142.2" end="192.168.142.254"/>
+    </dhcp>
+  </ip>
+</network>
+EOF
+echo "creating "rhel-labs" network with nat forwarding." 2&>1 >> $xx
+virsh net-create /usr/share/libvirt/networks/rhel-labs.xml || echo "failed to create rhel-labs network domain"
+fi
+
+sleep 1
+echo $percentage
+percentage=$(expr $percentage + 1)
+done
+)|
+$DIALOG --title "Creating Network Domain" \
+	--gauge " \n
+virsh network: rhel-labs \n
+" 10 70 0 || ps auxx | grep -v grep |grep -v vim |egrep -i "lab" |awk '{print $2}'|xargs kill -9 || echo "Failed to create virsh network domain "rhel-labs" for server.example.com, check functions"
+}
+
+# MAIN
+for args in "$@"; do
+	if [ "$args" = "clone" ]; then
+		__labdownload || echo "__labdownload function has failed" && exit
+        elif [ "$args" = "labmd5" ]; then
+                __labmd5 || echo "__labmd5 has failed" && exit
+	elif [ "$args" = "tar" ]; then
+		__tarf || echo "__tarf has failed" &&  exit
+	elif [ "$args" = "server_1" ]; then
+		__servermd5 || echo "__servermd5 has failed" &&  exit
+	elif [ "$args" = "server_2" ]; then
+		__servernetwork || echo "__servernetwork has failed" &&  exit
+	elif [ "$args" = "server_3" ]; then
+		__servervirtinstall && exit
+        elif [ "$args" = "server_4" ]; then
+		__server_install&exit
+	elif [ "$args" = "__serverreboot" ]; then
+		__serverreboot && exit
+	elif [ "$args" = "__serverstop" ];then
+		__serverstop && exit
+	elif [ "$args" = "__serverstart" ];then
+		__serverstart && exit
+        elif [ "$args" = "__serverconsole" ];then
+                __serverconsole&exit
+	else
+
+        echo "Main functions script has failed to exit properly" && exit
+
+	fi
+done

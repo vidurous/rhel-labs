@@ -1,0 +1,147 @@
+#!/bin/bash
+source /home/root/bin/initialize-lab
+# Run as root
+xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/lab-tui-labs$$
+P1CHECK="/home/root/rhel-labs/.install"
+P2CHECK="/dev/urandom"
+P3CHECK="chown -R qemu:qemu /home/root/rhel-labs/"
+P4CHECK="/home/root/rhel-labs/.storage"
+trap "rm -f $xx" 0 1 2 5 15
+
+
+# Inital directory check, if the wanted directories aren't present create them and change into each respective dir
+if [ ! -d "$P1CHECK" ]; then
+	mkdir -p $P1CHECK && mkdir -p $P4CHECK && $P3CHECK && cd $P1CHECK && echo "$P1CHECK created" || echo "Error making $P1CHECK"
+
+elif [ -d "$P1CHECK" ]; then
+	cd $P1CHECK && mkdir -p $P4CHECK && $P3CHECK|| echo "Error executing $P1CHECK and/or $P3CHECK"
+
+elif [ ! -d "$P2CHECK" ]; then
+	mknod -m 666 /dev/random c 1 8 || echo "failed making /dev/urandom check kernel support"
+	mknod -m 666 /dev/urandom c 1 9 || echo "failed making /dev/urandom check kernel support"
+	chown root:root /dev/random /dev/urandom || echo "failed chowning /dev/urandom to root"
+
+else
+	echo "$P1CHECK and $P2CHECK have been created"
+fi
+
+
+	if [ ! -f "$P1CHECK/.install-finished" ]; then
+		echo "checking for $P1CHECK/.install-finished"
+		USER="root"
+		export HOME="/home/root/rhel-labs/.install"
+		DIALOG=${DIALOG=dialog}
+		xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.lab-tui-stage1-$$
+		trap "rm -f $xx" 0 1 2 5 15
+		$DIALOG --nocancel --clear --title "RHEL-LABS: Supplemental Labs for RH199 Examinations" \
+			--menu " \n Download sparsified virt archives, install any required software \n packages, create lab user and any additional configurations. \n
+		\n
+		Select either 'Install' or 'Exit': \n
+			" 14 75 20 \
+			"Exit"  "Exit the application" \
+			"Install"  "Install lab requirements and prerequisites" 2> $xx || echo "Failed to start lab-tui"
+
+	elif [[ -f "$P1CHECK/.install-finished" ]] && [[ ! -f "$P1CHECK/.server-installed" ]] && [[ -f $P4CHECK/server.img ]]; then
+		USER="root"
+                export HOME="/home/root/rhel-labs/.install"
+		virtcheck=`virtcheck 2>/dev/null` || virtcheck=$(virsh list --all|grep -o server.example.com|wc -l)
+		DIALOG=${DIALOG=dialog}
+		xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.lab-tui-stage2-$$
+		trap "rm -f $xx" 0 1 2 5 15
+		if [[ "$virtcheck" == "1" ]] && [[ ! -f $P1CHECK/.server-installed ]]; then
+			touch $HOME/.server-installed
+			exec /home/root/bin/lab-tui
+		fi
+		trap "rm -f $xx" 0 1 2 5 15
+		$DIALOG --nocancel --clear --title "RH199 Supplemental Labs for the RHCSA" \
+        		--menu "Download and provision environment and labs execises:" 25 85 20 \
+        		"Exit"  "Exit the application" \
+        		"Labs"  "Obtain graded lab execises based on chapters 1-16" \
+			"Install VM"  "Install Server VM (NOT INSTALLED)" 2> $xx || echo "Failed to start lab-tui stage 2"
+
+
+        elif [[ -f "$P1CHECK/.install-finished" ]] && [[ -f "$P1CHECK/.server-installed" ]] && [[ ! -f "$P1CHECK/.lab-tui-Server" ]] && [[ -f $P4CHECK/server.img ]]; then
+		USER="root"
+		export HOME="/home/root/rhel-labs/.install"
+		virtcheck=`virtcheck 2>/dev/null` || virtcheck=$(virsh list --all|grep -o server.example.com|wc -l)
+		DIALOG=${DIALOG=dialog}
+		trap "rm -f $xx" 0 1 2 5 15
+		xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.lab-tui-stage3-$$
+		if [[ "$virtcheck" == "0" ]] && [[ -f $P1CHECK/.server-installed ]]; then 
+			rm -f $HOME/.server-installed
+			exec /home/root/bin/lab-tui
+		fi
+		$DIALOG --nocancel --clear --title "RH199 Supplemental Labs for the RHCSA" \
+			--menu "Obtain labs execises:" 25 85 20 \
+			"Exit"  "Exit the application" \
+			"Labs"  "Obtain graded lab execises based on chapters 1-16" \
+			"Server"  "Server VM (INSTALLED)" 2> $xx || rm -f /home/root/rhel-labs/.install/.lab-tui-Server
+
+
+
+        elif [[ -f "$P1CHECK/.install-finished" ]] && [[ -f "$P1CHECK/.server-installed" ]] && [[ -f "$P1CHECK/.lab-tui-Server" ]] && [[ -f $P4CHECK/server.img ]]; then
+		export HOME="/home/root/rhel-labs/.install"
+		USER="root"
+		DIALOG=${DIALOG=dialog}
+		xx=`xx 2>/dev/null` || xx=/home/root/rhel-labs/.install/.lab-tui-stage4-$$
+		trap "rm -f $xx" 0 1 2 5 15
+
+		$DIALOG --nocancel --clear --title "RH199 Supplemental Labs for the RHCSA" \
+			--menu "server.example.com:" 25 85 20 \
+			"Back"  "Up one" \
+			"Console" "Open Console" \
+			"Start" "Start server" \
+			"Stop" "Stop server" \
+			"Reboot" "Reboot server" \
+			"Snapshot" "" 2> $xx || rm -f /home/root/rhel-labs/.install/.lab-tui-Server
+
+
+
+
+	else 
+	        echo "Unknown failure, all attempts to fix the lab have failed. Manually delete '/home/root/rhel-labs' resetting server to NOT INSTALLED, restart tui if needed" && exit
+	fi
+
+	retval=$?
+	choice=`cat $xx`
+	case $retval in
+
+  	0)
+    	#echo "'$choice' chosen."
+	;;
+  	1)
+    	#echo "Cancel was selected."
+	;;
+  	255)
+    	#echo "ESC pressed."
+	;;
+
+	esac
+
+    	if [ "$choice" = "Exit" ]; then
+    		reset && exit || echo "Program has failed to exit"
+	elif [ "$choice" = "Back" ]; then
+		rm -f /home/root/rhel-labs/.install/.lab-tui-Server && exec /home/root/bin/lab-tui || echo "Entering the /home/root/bin/lab-tui-server menu has failed, please check the /home/root/bin/lab-tui-server dialog menu"
+
+    	elif [ "$choice" = "Install" ]; then
+    		/home/root/bin/initialize-lab clone && /home/root/bin/initialize-lab labmd5 && /home/root/bin/initialize-lab tar && exec /home/root/bin/lab-tui || echo "Downloading the lab has failed, please check the /home/root/bin/lab-tui-build script"
+
+    	elif [ "$choice" = "Install VM" ]; then
+		/home/root/bin/initialize-lab server_1 && /home/root/bin/initialize-lab server_2 && /home/root/bin/initialize-lab server_3 && /home/root/bin/initialize-lab server_4 && sleep 5 && exec /home/root/bin/lab-tui || echo "Failed to install VM Server stage 1 through 4"
+
+    	elif [ "$choice" = "Labs" ]; then
+    		/home/root/bin/lab-tui-labs || echo "Entering the /home/$USER/bin/lab-tui-labs menu has failed, please check the /home/root/bin/lab-tui-labs script"
+
+    	elif [ "$choice" = "Server" ]; then
+    		touch /home/root/rhel-labs/.install/.lab-tui-Server && exec /home/root/bin/lab-tui || rm -f /home/root/rhel-labs/.install/.lab-tui-Server && echo "Entering the /home/root/bin/lab-tui-server menu has failed, please check the /home/root/bin/lab-tui-server dialog menu"
+	elif [ "$choice" = "Reboot" ]; then
+		/home/root/bin/initialize-lab __serverreboot && exec /home/root/bin/lab-tui || echo "failed to run __serverreboot check functions" && reset
+        elif [ "$choice" = "Stop" ]; then
+                /home/root/bin/initialize-lab __serverstop && exec /home/root/bin/lab-tui || echo "failed to run __serverstop check functions" && reset
+        elif [ "$choice" = "Start" ]; then
+                /home/root/bin/initialize-lab __serverstart && exec /home/root/bin/lab-tui || echo "failed to run __serverstart check functions" && reset
+        elif [ "$choice" = "Console" ]; then
+                /home/root/bin/initialize-lab __serverconsole && sleep 5 && exec /home/root/bin/lab-tui || echo "failed to run __serverconsole check functions" && reset
+  	else
+    		reset && echo "Failed to call /home/root/bin/lab-tui " && exit || exit
+    	fi
