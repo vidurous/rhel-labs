@@ -384,7 +384,6 @@ done )|
 
 }
 
-
 __serverconsole() {
 DIALOG=${DIALOG=dialog}
 export HOME=/home/root/rhel-labs/.install
@@ -427,7 +426,6 @@ done )|
              " 10 70 0 || ps auxx|grep -v grep|grep -v vim|grep virt-viewer|grep server.example.com|awk '{print $2}'|xargs kill -9 && exit || echo "virsh reboot  while loop failed"
 
 }
-
 
 __desktop_install() {
 printf "Spawning RHEL7.2 training desktop vm."
@@ -530,8 +528,8 @@ virsh network: rhel-labs \n
 for args in "$@"; do
 	if [ "$args" = "clone" ]; then
 		__labdownload || echo "__labdownload function has failed" && exit
-        elif [ "$args" = "labmd5" ]; then
-                __labmd5 || echo "__labmd5 has failed" && exit
+    elif [ "$args" = "labmd5" ]; then
+        __labmd5 || echo "__labmd5 has failed" && exit
 	elif [ "$args" = "tar" ]; then
 		__tarf || echo "__tarf has failed" &&  exit
 	elif [ "$args" = "server_1" ]; then
@@ -540,16 +538,16 @@ for args in "$@"; do
 		__servernetwork || echo "__servernetwork has failed" &&  exit
 	elif [ "$args" = "server_3" ]; then
 		__servervirtinstall && exit
-        elif [ "$args" = "server_4" ]; then
+    elif [ "$args" = "server_4" ]; then
 		__server_install&exit
 	elif [ "$args" = "__serverreboot" ]; then
-		__serverreboot && exit
+		__serverreboot && exit || echo "failed to reboot server"
 	elif [ "$args" = "__serverstop" ];then
-		__serverstop && exit
+		__serverstop && exit || echo "failed to stop server"
 	elif [ "$args" = "__serverstart" ];then
-		__serverstart && exit
-        elif [ "$args" = "__serverconsole" ];then
-                __serverconsole&exit
+		__serverstart && exit || echo "failed to start server"
+    elif [ "$args" = "__serverconsole" ];then
+        __serverconsole&exit
 	else
 
         echo "Main functions script has failed to exit properly" && exit
