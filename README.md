@@ -1,5 +1,5 @@
 Current State: Not Complete.
-============================
+----------------------------
 
 In the present state rhel-labs will download the image archive, check
 md5sums, extract the archive, then return to an updated tui interface.
@@ -16,14 +16,14 @@ be created (chapter 1 and chapter 2) are already created. To check out
 current progress install instructions below.
 
 Dependencies
-============
+------------
 
 Known Issues: No current fs disk space checks (coming soon after I
 sleep). Images are 2.4GB when downloaded as an archive and 20GB after
 uncompressed utilizing space in /home.
 
 Fedora:
-=======
+------
 
 `# dnf install wget pv dialog findutils gawk sed grep coreutils -y && dnf group install with-optional virtualization -y`
 
@@ -34,7 +34,7 @@ maybe needed.
 `# mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom`
 
 RHEL 7:
-=======
+-------
 
 `# yum install wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y`
 
