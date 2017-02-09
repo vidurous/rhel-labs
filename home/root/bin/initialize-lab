@@ -413,6 +413,7 @@ exit
 
 elif [[ "$proc"="0" ]]; then
 percentage="100"
+echo $percentage
 $virtconsole 2>/dev/null
 echo $percentage
 sleep 2
