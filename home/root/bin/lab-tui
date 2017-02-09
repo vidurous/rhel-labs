@@ -119,7 +119,7 @@ fi
         elif [ "$choice" = "Start" ]; then
                 /home/root/bin/initialize-lab __serverstart && exec /home/root/bin/lab-tui || echo "failed to run __serverstart check functions" && reset
         elif [ "$choice" = "Console" ]; then
-                /home/root/bin/initialize-lab __serverconsole && sleep 5 && exec /home/root/bin/lab-tui || echo "failed to run __serverconsole check functions" && reset
+                /home/root/bin/initialize-lab __serverconsole && sleep 4 && exec /home/root/bin/lab-tui || echo "failed to run __serverconsole check functions" && reset
   	else
     		reset && echo "Failed to call /home/root/bin/lab-tui " && exit || exit
     	fi

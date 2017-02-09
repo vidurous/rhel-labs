@@ -283,25 +283,19 @@ virshcheck=$(systemctl status libvirtd|grep -o "active (running)"|wc -l)
 reboot='virsh --connect qemu:///system reboot server.example.com'
 
 if [[ "$virtcheck" == "0" ]]; then
-sleep 2
-echo 99
-sleep 1
 echo 100
 sleep 1
 exit
 
 
 elif [[ "$virtcheck"="1" ]] && [[ "$virshcheck"="1" ]]; then
-percentage="97"
-sleep 2 && $reboot 2>/dev/null
-fi
-sleep 1
-echo 98
-sleep 1
-echo 99
-sleep 1
-echo 100
+percentage="100"
+$reboot 2>/dev/null
+echo $percentage
+sleep 2
 exit
+fi
+echo $percentage
 percentage=$(expr $percentage + 1)
 done )|
      $DIALOG --title "server.example.com" \
@@ -330,23 +324,20 @@ trap "rm -f $xx" 0 1 2 5 15
 proc="ps auxx|grep -v grep|grep virt-viewer|grep -o server.example.com|wc -l"
 virtcheck=$(virsh list --all|grep server.example.com|awk '{print $3}'|grep "running"|wc -l)
 virshcheck=$(systemctl status libvirtd|grep -o "active (running)"|wc -l)
-virtstop='virsh --connect qemu:///system destroy server.example.com'
+virtstop="virsh --connect qemu:///system destroy server.example.com"
 
 if [[ "$virtcheck" == "0" ]]; then
-sleep 2
-echo 100
-sleep 1
 exit
-
 
 elif [[ "$virtcheck"="1" ]]; then
 percentage="100"
 $virtstop 2>/dev/null
-fi
-
 sleep 1
-echo $percentage
-percentage=$(expr $percentage + 1)
+echo 100
+sleep 1
+exit
+fi
+#percentage=$(expr $percentage + 1)
 done )|
      $DIALOG --title "server.example.com" \
              --gauge " \n
@@ -376,18 +367,16 @@ virshcheck=$(systemctl status libvirtd|grep -o "active (running)"|wc -l)
 virtstart='virsh --connect qemu:///system start server.example.com'
 
 if [[ "$virtcheck" == "1" ]]; then
-sleep 2
-echo 100
-sleep 1
 exit
 
 
 elif [[ "$virtcheck"="1" ]] && [[ "$virshcheck"="1" ]]; then
 percentage="100"
 $virtstart 2>/dev/null
-fi
-sleep 1
 echo $percentage
+sleep 2
+exit
+fi
 percentage=$(expr $percentage + 1)
 done )|
      $DIALOG --title "server.example.com" \
@@ -420,9 +409,7 @@ virshcheck=$(systemctl status libvirtd|grep -o "active (running)"|wc -l)
 virtconsole='virt-viewer --connect qemu:///system server.example.com'
 
 if [[ "$proc" == "1" ]]; then
-sleep 2
 echo 100
-sleep 1
 exit
 
 
@@ -430,8 +417,10 @@ elif [[ "$proc"="0" ]]; then
 percentage="100"
 $virtconsole 2>/dev/null
 echo 100
+sleep 2
 exit
 fi
+echo 100
 percentage=$(expr $percentage + 1)
 done )|
      $DIALOG --title "server.example.com" \
