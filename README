@@ -1,8 +1,4 @@
-Current State: Not Complete. (tested on Fedora 24)
-
-# known issues:
-
-
+Current State: Not Complete. (Tested on Fedora 24 RHEL 7)
 
 Updated with error checking, traps, wrapped in dialog bringing the project up to speed as a 
 native bash application. In the present state the application will download the iso archive, 
@@ -19,24 +15,23 @@ additional labs will be created (chapter 1 and chapter 2) are already created. T
 current progress install the deps below; Future versions will resolve deps using error 
 checking (maybe) for now:
 
-Ensure Dependencies
-===================
+Dependencies
+============
 
-# dnf install wget pv dialog findutils gawk sed grep coreutils -y && dnf group install with-optional virtualization -y
+  # dnf install wget pv dialog findutils gawk sed grep coreutils -y && dnf group install with-optional virtualization -y
 
-The inital check should generate /dev/random and /dev/urandom (used for random mac address assignment)
-however if this fails manaul creation maybe needed:
+  The inital check should generate /dev/random and /dev/urandom (used for random mac address assignment)
+  however if this fails manaul creation maybe needed:
 
-# mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom
+  # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom
+
 
 Install commands (copy all in one line):
 
-# mkdir -p /home/root/bin && cd /home/root/bin/ && wget http://irondung.net:8120/training/initialize-lab 
-&& wget http://irondung.net:8120/training/lab-tui && chmod +x {lab-tui,initialize-lab} && ./lab-tui
+  as root:
 
-    At the moment the application will download the iso archives, check their md5sum, and untar 
-    these isos. Currently you must run 'lab-tui' from /home/root/bin as the root user.
+  # git clone https://github.com/vidurous/rhel-labs && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui
 
-    You can watch the subprocess function handoffs with watch:
+  At the moment the application will download the iso archives, check their md5sum, and untar 
+  these isos. Currently you must run 'lab-tui' from /home/root/bin as the root user.
 
-    # watch 'ps aux|grep -v grep|grep -v vim|egrep -p "lab|tar.gz|wget|pv"'
