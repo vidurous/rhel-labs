@@ -2,11 +2,9 @@ Current State: Not Complete. (Tested on Fedora 24 RHEL 7)
 =========================================================
 Updated with error checking, traps, wrapped in dialog bringing the project up to speed as a native bash application. In the present state the application will download the iso archive, check md5sums, extract the archive, then return to an updated tui interface. At this point the user is prompted to install the server. Md5sum checks are completed for server.img, then the server is provisioned through virsh and additional menu's unlock. Multiple subproccess are handed off when navigating through dialog menus based on changes to state file tests to indicate which dialog menu is used. The server menu is close to  having full functionality. The vm control menu's server will have start, stop, reboot, snapshot and revert functionality. Once this functionality is complete additional labs will be created (chapter 1 and chapter 2) are already created. To check out current progress install the deps below; Future versions will resolve deps using error checking (maybe) for now:
 
-
 Dependencies
 ============
 Known Issues: No current fs disk space checks (coming soon after I sleep). Images are 2.4GB when downloaded as an archive and 20GB after uncompressed utilizing space in /home.
-
 
 Fedora:
 =======
