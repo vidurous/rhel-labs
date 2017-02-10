@@ -4,7 +4,7 @@ RHEL-LABS
 
 * **Current State:** *partial functionality* <sup>1</sup>
 
-|   Create a virtual training environment<sup>2</sup> that consists of a server and desktop virtual machines<sup>3</sup> running Red Hat Enterprise Linux 7.2. This environment is based on other similar training environments<sup>4</sup> used at Red Hat and other learning institutes as a study aid for the RHCSA and RHCE certification examinations.
+Create a virtual training environment<sup>2</sup> that consists of a server and desktop virtual machines<sup>3</sup> running Red Hat Enterprise Linux 7.2. This environment is based on other similar training environments<sup>4</sup> used at Red Hat and other learning institutes as a study aid for the RHCSA and RHCE certification examinations.
 
 In the present state rhel-labs will download an image archive,<sup>5</sup> validate checksums, extract the archive, then return to an tui interface. The user is then prompted to install server.example.com and checksums are completed for base image,<sup>6</sup> then provisioned through virsh which allows additional menus to unlock.
 
@@ -13,29 +13,29 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 |
 
 ### Fedora 24+
-~~~
+~~~bash
 # Required rpm packages:
   
 # dnf install git wget pv dialog findutils gawk sed grep coreutils -y && dnf group install with-optional virtualization -y
-~~~
+~~~bash
 
-~~~
+~~~bash
 # Inital checks should generate /dev/random and /dev/urandom (used for random mac address assignment) however if this fails manaul creation is needed.
       
 # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom
-~~~
+~~~bash
 
 ### RHEL 7
-~~~
+~~~bash
 # Required rpm packages:
 
 # yum install git wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y
-~~~
-~~~
+~~~bash
+~~~bash
 # Inital checks should generate /dev/random and /dev/urandom (used for random mac address assignment) however if this fails manaul creation is needed.
  
 # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom
-~~~
+~~~bash
 
 |
 |
