@@ -49,7 +49,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 | 4 | *Similar use and behavior for Red Hat's instructor lead classroom certification courses.* |
 | 5 | *The image archive ( 2.4GB ) contains a server.img ( 8GB ) and desktop.img ( 12GB ) once uncompressed.* |
 | 6 | *Each virtual machine image will have an internal snapshot defining a default base state to revert back to.* |
-| 7 | *The program was written for a person with only linux end user experience and bash for additional transparency concerning learning.* | 
+| 7 | *The program was written for the target audience only having linux end user experience and bash for additional transparency concerning learning.* | 
 | 8 | *Snapshot states for reverting back to the base image state and whatever user progressed saved state will be available.* |
 | 9 | *The control menu allows for basic control of the virtual machine.* |
 | 10 | *Delivery of compressed virtual machine images, checksum verification, installation of virtual machines, full control menu and snapshot functionality.* | 
