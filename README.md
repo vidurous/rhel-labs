@@ -1,12 +1,12 @@
 RHEL-LABS
 =========
-### **Current State:** *partially functional*
+### **Current State:** *partially functional* <sup>1</sup>
 
-Create a virtual training environment that consists of a server and desktop virtual machine running Red Hat Enterprise Linux 7.2 based on training environments for the RHCSA and RHCE examination certifications.
+Create a virtual training environment<sup>2</sup> that consists of a server and desktop virtual machine<sup>3</sup> running Red Hat Enterprise Linux 7.2 which is based on a similar training environments<sup>4</sup> used to help study for the RHCSA and RHCE examination certifications.
 
-In the present state rhel-labs will download the image archive, check md5sums, extract the archive, then return to an updated tui interface. The user is prompted to install the server and md5sum checks are completed for server.img, then the server is provisioned through virsh and additional menu's unlock.
+In the present state rhel-labs will download an image archive<sup>5</sup>, check md5sums, extract the archive, then return to an tui interface. The user is prompted to install server.example.com and md5sum checks are completed for base image<sup>6</sup>, then provisioned through virsh and allowing additional menus to unlock.
 
-Multiple subproccess are handed off when navigating through dialog menus based on changes to state file tests to indicate which dialog menu is used. The server menu is close to having full functionality. The vm control menu's server will have start, stop, reboot, snapshot and revert functionality. Once this functionality is complete additional labs will be created (chapter 1 and chapter 2) are already created. To check out current progress install instructions below.
+Subproccess are used in a controlled fashion handed off when navigating through dialog menus based on changes to state file conditionals<sup>7</sup> indicating which dialog menu to use. The first vm server.example.com is close to being full functionality; at the present moment snapshots<sup>8</sup> are outstanding. Both vms will have a control menu<sup>9</sup> with start, stop, reboot, snapshot and revert functionality. Once core functionality <sup>10</sup> is complete additional labs will be created (chapter 1 and chapter 2) are already created. To check out current progress see install instructions below.
 
 Dependencies
 ===========
@@ -54,8 +54,15 @@ Dependencies
 
 
 <sup>1</sup> *(gain root user first)*
-
-
+<sup>2</sup>
+<sup>3</sup>
+<sup>4</sup>
+<sup>5</sup>
+<sup>6</sup>
+<sup>7</sup>
+<sup>8</sup>
+<sup>9</sup>
+<sup>10</sup>
 
 
 
