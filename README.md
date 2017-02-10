@@ -53,7 +53,7 @@ Dependencies
 
 
 
-<sup>1</sup>
+<sup>1</sup> RHEL-LABS's current functionality is limited to server.example.com. Premade virtual based qemu images are prepared to provide a user with a throw away practice environments with supplemental exercise labs that are planned to be graded remotely. Scoring will be based on 300 point scale and correct answers will not be provided, only your total score once all 16 chapters are completed. The idea is to become familiar in understanding and evaluating where things may have gone wrong which is similiar in form to how Red Hat certifications exam work.     
 
 <sup>2</sup>
 
