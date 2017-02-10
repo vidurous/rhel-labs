@@ -16,16 +16,16 @@ Dependencies
 ### Fedora 24+
 | 
 ~~~
-|      ## Required rpm packages:
-|  
-|      # yum install git wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y
+      ## Required rpm packages:
+  
+      # yum install git wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y
 ~~~
 ~~~
-|      ##  Inital checks should generate /dev/random and /dev/urandom 
-|      ##  (used for random mac address assignment) however if this 
-|      ##  fails manaul creation is needed.
-|      
-|      # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom
+      ##  Inital checks should generate /dev/random and /dev/urandom 
+      ##  (used for random mac address assignment) however if this 
+      ##  fails manaul creation is needed.
+      
+      # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom
 ~~~
 |  
 
