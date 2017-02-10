@@ -53,7 +53,7 @@ Dependencies
 
 
 
-<sup>1</sup>: *(gain root user first)*
+<sup>1</sup> *(gain root user first)*
 
 
 
