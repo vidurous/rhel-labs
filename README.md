@@ -16,7 +16,7 @@ Dependencies
 ~~~
 # Required rpm packages:
   
-# yum install git wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y
+# dnf install git wget pv dialog findutils gawk sed grep coreutils -y && dnf group install with-optional virtualization -y
 ~~~
 
 ~~~
