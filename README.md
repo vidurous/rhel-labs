@@ -55,7 +55,7 @@ Dependencies
 | 2 | *Premade virtual based qemu images are prepared to provide users with throw away practice environments with additional unique supplemental lab execises that will be graded remotely automatically returning results or possibly displayed on an auto-generated python flash http page.* |
 | 3 | *Server and Desktop virtual machines are running RHEL 7.2.* | 
 | 4 | *Similar use and behavior for Red Hat's instructor lead classroom certification courses.* |
-| 5 | *The image archive (2.4GB) contains a server.img (8GB)and desktop.img(10GB) once uncompressed.* |
+| 5 | *The image archive (2.4GB) contains a server.img (8GB) and desktop.img (10GB) once uncompressed.* |
 | 6 | *Each virtual machine image will have an internal snapshot defining a default base state to revert back to.* |
 | 7 | *The program was written for a person with only linux end user experience. It was written in bash to encourage an introduction to bash programming.* | 
 | 8 | *Snapshot states for reverting back to the base image state and whatever user progressed saved state will be available.* |
