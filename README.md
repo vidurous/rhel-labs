@@ -48,6 +48,8 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 |
 |
 
+**Footnotes**
+
 | note         | info          |
 | :---:        |     :---      |
 | 1 | *RHEL-LABS's current functionality is limited to server.example.com. Lab execises are coming soon.* |
