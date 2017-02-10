@@ -1,4 +1,4 @@
-rhel-labs
+RHEL-LABS
 =========
 **Current State:** *partially functional* <sup>1</sup>
 
