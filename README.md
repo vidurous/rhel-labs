@@ -27,7 +27,7 @@ uncompressed utilizing space in /home.
 Fedora 24+
 ------
 ~~~
- # dnf install wget pv dialog findutils gawk sed grep coreutils -y && dnf group install with-optional virtualization -y`
+ # dnf install wget pv dialog findutils gawk sed grep coreutils -y && dnf group install with-optional virtualization -y
 
 The inital check should generate /dev/random and /dev/urandom (used for
 random mac address assignment) however if this fails manaul creation
@@ -40,7 +40,7 @@ RHEL 7
 -------
 >
 ~~~
- # yum install wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y`
+ # yum install wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y
 ~~~
 > The inital check should generate /dev/random and /dev/urandom (used for
 > random mac address assignment) however if this fails manaul creation
@@ -55,7 +55,7 @@ RHEL 7
 ~~~
 
 ### ToDo ###
-~~~
+>
 -   Improve the README w/ proper md.
 
 -   Additional testing of encryption methods and how the application
@@ -89,4 +89,4 @@ RHEL 7
 -   Some type of consistent logging for traps.
 
 -   Proper formatting for both lab-tui and initialize-lab.
-~~~
+>
