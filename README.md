@@ -14,34 +14,36 @@ Create a virtual training environment that consists of a server and desktop virt
  Known Issues: No current fs disk space checks. Images are 2.4GB when downloaded as an archive and 20GB after
  uncompressed utilizing space in /home.
 ~~~
-
+>
+>
  Fedora 24+
 ---------------
 *required rpms:*
 ~~~
  # dnf install wget pv dialog findutils gawk sed grep coreutils -y && dnf group install with-optional virtualization -y
 ~~~
-
-
+>
+>
 *The inital check should generate /dev/random and /dev/urandom (used for random mac address assignment) however if this fails manaul creation maybe needed.*
 ~~~
  # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom`
 ~~~
-
+>
+>
  RHEL 7
 -------
 *required rpms:*
 ~~~
  # yum install wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y
 ~~~
-
-
+>
+>
 *The inital check should generate /dev/random and /dev/urandom (used for random mac address assignment) however if this fails manaul creation maybe needed.*
 ~~~
  # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom`
 ~~~
-
-
+>
+>
 **Install commands (copy all in one line): as root:**
 ~~~
  # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom && git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui || git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui
