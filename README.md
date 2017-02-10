@@ -11,7 +11,7 @@ In the present state rhel-labs will download an image archive,<sup>5</sup> valid
 Subproccess are used in a controlled fashion handed off when navigating through dialog menus based on changes to state file conditionals<sup>7</sup> indicating which dialog menu to use. The first vm server.example.com is close to being full functionality; at the present moment snapshots<sup>8</sup> are outstanding. Both vms will have a control menu<sup>9</sup> with start, stop, reboot, snapshot and revert functionality. Once core functionality<sup>10</sup> is complete additional labs will be created (chapter 1 and chapter 2) are already created. To check out current progress see install instructions below.
 
 
-### Fedora 24+
+###### Fedora 24+
 ---
 
 ```
@@ -26,7 +26,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom
 ```
 
-### RHEL 7
+###### RHEL 7
 ---
 
 ```
