@@ -9,8 +9,9 @@ In the present state rhel-labs will download the image archive, check md5sums, e
 Multiple subproccess are handed off when navigating through dialog menus based on changes to state file tests to indicate which dialog menu is used. The server menu is close to having full functionality. The vm control menu's server will have start, stop, reboot, snapshot and revert functionality. Once this functionality is complete additional labs will be created (chapter 1 and chapter 2) are already created. To check out current progress install instructions below.
 
 Dependencies
----
-
+===========
+|
+|
  Fedora 24+
 ---
  >
@@ -24,8 +25,8 @@ Dependencies
  ~~~
   # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom
  ~~~
-
-
+|
+|
  RHEL 7
 ---
  >
@@ -39,14 +40,15 @@ Dependencies
  ~~~
   # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom
  ~~~
-
-
+|
+|
 ### **All-in-one install:**
 * *(gain root user first)*
 ~~~
  # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui || git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui
 ~~~
-
+|
+|
 **Todo List**
 ---
 
