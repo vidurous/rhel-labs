@@ -1,6 +1,7 @@
 RHEL-LABS
 =========
 *Create a virtual training environment that consists of a server and desktop virtual machine running Red Hat Enterprise Linux 7.2 based on training environments for the RHCSA and RHCE examination certifications.*
+
 ### Current State: Not Complete ###
  In the present state rhel-labs will download the image archive, check md5sums, extract the archive, then return to an 
  updated tui interface. The user is prompted to install the server and md5sum checks are completed for server.img, then 
@@ -20,9 +21,9 @@ RHEL-LABS
 ~~~
  # dnf install wget pv dialog findutils gawk sed grep coreutils -y && dnf group install with-optional virtualization -y
 ~~~
- The inital check should generate /dev/random and /dev/urandom (used for
+*The inital check should generate /dev/random and /dev/urandom (used for
  random mac address assignment) however if this fails manaul creation
- maybe needed.
+ maybe needed.*
 ~~~
  # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom`
 ~~~
@@ -31,14 +32,14 @@ RHEL-LABS
 ~~~
  # yum install wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y
 ~~~
- The inital check should generate /dev/random and /dev/urandom (used for
+*The inital check should generate /dev/random and /dev/urandom (used for
  random mac address assignment) however if this fails manaul creation
- maybe needed.
+ maybe needed.*
 ~~~
  # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom`
 ~~~
 
-  Install commands (copy all in one line): as root:
+* Install commands (copy all in one line): as root:*
 ~~~
  # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui`
 ~~~
