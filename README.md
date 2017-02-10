@@ -1,6 +1,5 @@
-### RHEL-LABS
-***
-
+RHEL-LABS
+---
 **Goals:** *32 chapters = ( 16 chapters RHCSA ) + ( 16 chapters RHCE )*
 
 **Current State:** *partial functionality* <sup>1</sup>
@@ -13,7 +12,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 
 |
 
-#### Fedora 24+
+Fedora 24+
 ---
 ```
 # Required rpm packages:
@@ -27,7 +26,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom
 ```
 
-#### RHEL 7
+RHEL 7
 ---
 ```
 # Required rpm packages:
@@ -43,7 +42,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 |
 |
 
-#### **All-In-One Install** <sup>11</sup>
+**All-In-One Install** <sup>11</sup>
 ---
 ~~~
  # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui || git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui
@@ -52,7 +51,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 |
 |
 
-#### **Footnotes**
+**Footnotes**
 ---
 | *note*       | *info*        |
 | :---:        |     :---      |
@@ -72,8 +71,8 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 |
 |
 
-#### **Upcoming Features**
-
+**Upcoming Features**
+---
 - [ ] Additional testing of encryption methods and how the application delivers a lab users a grading script; honest grading 
 and attempt count are highest priority and currently I have a working method to deal with both. This intergration partially exists and satisfies the apache license. 
 
