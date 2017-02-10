@@ -49,28 +49,18 @@ Dependencies
  # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui || git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui
 ~~~
 
-| *footnote* | *description* |
+| *footnote*   | *description* |
 | :---:        |     :---      |
 | 1 | RHEL-LABS's current functionality is limited to server.example.com. Scoring will be based on 300 point scale and correct answers will not be provided, only your total score once all 16 chapters are completed. The idea is to become familiar in understanding and evaluating where things may have gone wrong which is similiar in form to how Red Hat certifications exam work. |
-
 | 2 | Premade virtual based qemu images are prepared to provide users with throw away practice environments with additional unique supplemental lab execises that will be graded remotely automatically returning results or possibly displayed on an auto-generated python flash http page. |
-
-| 3 | Server and Desktop virtual machines are running RHEL 7.2. |
- 
+| 3 | Server and Desktop virtual machines are running RHEL 7.2. | 
 | 4 | Similar use and behavior for Red Hat's instructor lead classroom certification courses. |
- 
 | 5 | The image archive (2.4GB) contains a server.img (8GB)and desktop.img(10GB) once uncompressed. |
-
 | 6 | Each virtual machine image will have an internal snapshot defining a default base state to revert back to. |
-
 | 7 | The program was written for a person with only linux end user experience. It was written in bash to encourage an introduction to bash programming. | 
-
 | 8 | Snapshot states for reverting back to the base image state and whatever user progressed saved state will be available. |
-
 | 9 | The control menu allows for basic control of the virtual machine. |
-
 | 10 | Delivery of compressed virtual machine images, checksum verification, installation of virtual machines, full control menu and snapshot functionality. | 
-
 | 11 | Gain root user first while using RHEL-LABS
 
 
