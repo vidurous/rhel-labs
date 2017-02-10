@@ -1,5 +1,5 @@
 RHEL-LABS
-=========
+---
 ##### **Goals:** *32 chapters = ( 16 chapters RHCSA ) + ( 16 chapters RHCE )*
 ##### **Current State:** *partial functionality* <sup>1</sup>
 
