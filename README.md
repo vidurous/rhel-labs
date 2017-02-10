@@ -17,10 +17,12 @@ RHEL-LABS
  Known Issues: No current fs disk space checks. Images are 2.4GB when downloaded as an archive and 20GB after
  uncompressed utilizing space in /home.
 ~~~
+
 ### Fedora 24+ ###
 ~~~
  # dnf install wget pv dialog findutils gawk sed grep coreutils -y && dnf group install with-optional virtualization -y
 ~~~
+
 *The inital check should generate /dev/random and /dev/urandom (used for
  random mac address assignment) however if this fails manaul creation
  maybe needed.*
@@ -32,6 +34,7 @@ RHEL-LABS
 ~~~
  # yum install wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y
 ~~~
+
 *The inital check should generate /dev/random and /dev/urandom (used for
  random mac address assignment) however if this fails manaul creation
  maybe needed.*
