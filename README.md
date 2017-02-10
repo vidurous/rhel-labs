@@ -58,28 +58,28 @@ RHEL-LABS
 **Todo List**
 ***
 >
->   Additional testing of encryption methods and how the application delivers a lab users a grading script; honest grading 
+>  * Additional testing of encryption methods and how the application delivers a lab users a grading script; honest grading 
 and attempt count are highest priority and currently I have a working method to deal with both. This intergration partially exists and satisfies the apache license. 
 >
->   Intergrate delivery of completed lab exercises to the grading server(code coming soon) presenting the results on a dynamic python flask webpage.
+>  * Intergrate delivery of completed lab exercises to the grading server(code coming soon) presenting the results on a dynamic python flask webpage.
 >
->   Menu design for desktop.example.com that mirrors server.example.com.
+>  * Menu design for desktop.example.com that mirrors server.example.com.
 >
->   Changes to the server.example.com cloud image with internal snapshots (possibly re-provisioned using implantisomd5).
+>  * Changes to the server.example.com cloud image with internal snapshots (possibly re-provisioned using implantisomd5).
 >
->   Snapshot functionality for server.example.com.
+>  * Snapshot functionality for server.example.com.
 >
->   Lab intergration of the tui based on dynamic state files.
+>  * Lab intergration of the tui based on dynamic state files.
 >
->   All current error handling logic migrated to proper error functions in initialize-lab.
+>  * All current error handling logic migrated to proper error functions in initialize-lab.
 >
->   Screenshots and video overview added to README.
+>  * Screenshots and video overview added to README.
 >
->   Adpative server functionality menu based on dynamic state files.
+>  * Adpative server functionality menu based on dynamic state files.
 >
->   Set -e failed function review.
+>  * Set -e failed function review.
 >
->   Some type of consistent logging for traps.
+>  * Some type of consistent logging for traps.
 >
->   Proper formatting for both lab-tui and initialize-lab.
+>  * Proper formatting for both lab-tui and initialize-lab.
 >
