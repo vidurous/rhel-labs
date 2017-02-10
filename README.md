@@ -12,14 +12,15 @@ RHEL-LABS
  start, stop, reboot, snapshot and revert functionality. Once this functionality is complete additional labs will be 
  created (chapter 1 and chapter 2) are already created. To check out current progress install instructions below.
 
-### Dependencies ###
+ Dependencies
+----------------
 ~~~
  Known Issues: No current fs disk space checks. Images are 2.4GB when downloaded as an archive and 20GB after
  uncompressed utilizing space in /home.
 ~~~
 
-### Fedora 24+ ###
-
+ Fedora 24+
+---------------
 **required rpms:**
 ~~~
  # dnf install wget pv dialog findutils gawk sed grep coreutils -y && dnf group install with-optional virtualization -y
@@ -33,8 +34,8 @@ RHEL-LABS
  # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom`
 ~~~
 
-### RHEL 7 ###
-
+ RHEL 7
+-------
 **required rpms:**
 ~~~
  # yum install wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y
