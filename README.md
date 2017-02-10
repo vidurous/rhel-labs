@@ -38,7 +38,6 @@ Fedora 24+
 
 RHEL 7
 -------
->
 ~~~
  # yum install wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y
 ~~~
@@ -89,4 +88,3 @@ RHEL 7
 -   Some type of consistent logging for traps.
 
 -   Proper formatting for both lab-tui and initialize-lab.
->
