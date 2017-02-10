@@ -64,7 +64,7 @@ Dependencies
 | 8 | *Snapshot states for reverting back to the base image state and whatever user progressed saved state will be available.* |
 | 9 | *The control menu allows for basic control of the virtual machine.* |
 | 10 | *Delivery of compressed virtual machine images, checksum verification, installation of virtual machines, full control menu and snapshot functionality.* | 
-| 11 | *root user only while using RHEL-LABS.*
+| 11 | *root user only while using rhel-labs.*
 
 |
 |
