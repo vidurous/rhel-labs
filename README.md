@@ -1,6 +1,9 @@
 RHEL-LABS
 =========
 **Current State:** *partial functionality* <sup>1</sup>
+
+|
+
 *Project Goals: 32 chapters = (16 chapter RHCSA) + (16 chapters RHCE)*
 
 
