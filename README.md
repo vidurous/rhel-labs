@@ -13,8 +13,7 @@ Dependencies
 |
 |
 
- Fedora 24+
----
+### Fedora 24+
 >
 > ~~~
 >    ## Required rpm packages:
@@ -30,8 +29,7 @@ Dependencies
 > ~~~
 >
 
-RHEL 7
----
+### RHEL 7
 >
 > ~~~
 >    ## Required rpm packages:
