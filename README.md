@@ -11,6 +11,7 @@ Multiple subproccess are handed off when navigating through dialog menus based o
 Dependencies
 ---
 ### Fedora 24+
+---
 >
 *required rpms:*
 ~~~
@@ -25,6 +26,7 @@ Dependencies
 
 
 ### RHEL 7
+---
 >
 *required rpms:*
 ~~~
