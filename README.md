@@ -1,20 +1,20 @@
 Current State: Not Complete
 ---------------------------
-~~~
-In the present state rhel-labs will download the image archive, check
-md5sums, extract the archive, then return to an updated tui interface.
-The user is prompted to install the server and md5sum checks are
-completed for server.img, then the server is provisioned through virsh
-and additional menu's unlock.
-
-Multiple subproccess are handed off when navigating through dialog menus
-based on changes to state file tests to indicate which dialog menu is
-used. The server menu is close to having full functionality. The vm
-control menu's server will have start, stop, reboot, snapshot and revert
-functionality. Once this functionality is complete additional labs will
-be created (chapter 1 and chapter 2) are already created. To check out
-current progress install instructions below.
-~~~
+>
+> In the present state rhel-labs will download the image archive, check
+> md5sums, extract the archive, then return to an updated tui interface.
+> The user is prompted to install the server and md5sum checks are
+> completed for server.img, then the server is provisioned through virsh
+> and additional menu's unlock.
+>
+> Multiple subproccess are handed off when navigating through dialog menus
+> based on changes to state file tests to indicate which dialog menu is
+> used. The server menu is close to having full functionality. The vm
+> control menu's server will have start, stop, reboot, snapshot and revert
+> functionality. Once this functionality is complete additional labs will
+> be created (chapter 1 and chapter 2) are already created. To check out
+> current progress install instructions below.
+>
 
 Dependencies
 ------------
