@@ -48,12 +48,9 @@ Dependencies
 ~~~
  # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui || git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui
 ~~~
-|
-|
-
 
 --------  -----------------------------------------------------------
-keyword   text
+footnote  description
 --------  -----------------------------------------------------------
 1         RHEL-LABS's current functionality is limited to 
           server.example.com. Premade virtual based qemu images are 
