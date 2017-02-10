@@ -12,26 +12,26 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 
 |
 
-### Fedora 24+
-```shell
+###### Fedora 24+
+```
 # Required rpm packages:
   
 # dnf install git wget pv dialog findutils gawk sed grep coreutils -y && dnf group install with-optional virtualization -y
 ```
 
-```shell
+```
 # Inital checks should generate /dev/random and /dev/urandom (used for random mac address assignment) however if this fails manaul creation is needed.
       
 # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom
 ```
 
-### RHEL 7
-```shell
+###### RHEL 7
+```
 # Required rpm packages:
 
 # yum install git wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y
 ```
-```shell
+```
 # Inital checks should generate /dev/random and /dev/urandom (used for random mac address assignment) however if this fails manaul creation is needed.
  
 # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom
@@ -48,7 +48,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 |
 |
 
-**Footnotes**
+###### **Footnotes**
 
 | note         | info          |
 | :---:        |     :---      |
@@ -68,7 +68,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 |
 |
 
-### **Upcoming Features**
+###### **Upcoming Features**
 
 - [ ] Additional testing of encryption methods and how the application delivers a lab users a grading script; honest grading 
 and attempt count are highest priority and currently I have a working method to deal with both. This intergration partially exists and satisfies the apache license. 
