@@ -48,9 +48,8 @@ Install commands (copy all in one line): as root:
 
 `# git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui`
 
-~~~
 ### ToDo ###
-
+~~~
 -   Improve the README w/ proper md.
 
 -   Additional testing of encryption methods and how the application
