@@ -1,5 +1,5 @@
 RHEL-LABS
-=========
+---
 
 **Goals:** *32 chapters = ( 16 chapters RHCSA ) + ( 16 chapters RHCE )*
 **Current State:** *partial functionality* <sup>1</sup>
@@ -12,7 +12,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 
 
 Fedora 24+
-==========
+---
 
 ```
 # Required rpm packages:
@@ -27,7 +27,7 @@ Fedora 24+
 ```
 
 RHEL 7
-======
+---
 
 ```
 # Required rpm packages:
@@ -41,14 +41,14 @@ RHEL 7
 ```
 
 **All-In-One Install** <sup>11</sup>
-======================
+---
 
 ~~~
  # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui || git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui
 ~~~
 
 **Footnotes**
-=============
+---
 
 | *note*       | *info*        |
 | :---:        |     :---      |
@@ -65,7 +65,7 @@ RHEL 7
 | 11 | *root user only while using rhel-labs.*
 
 **Upcoming Features**
-=====================
+---
 
 - [ ] Additional testing of encryption methods and how the application delivers a lab users a grading script; honest grading 
 and attempt count are highest priority and currently I have a working method to deal with both. This intergration partially exists and satisfies the apache license. 
