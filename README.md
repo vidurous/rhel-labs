@@ -3,7 +3,6 @@ RHEL-LABS
 *Create a virtual training environment that consists of a server and desktop virtual machine running Red Hat Enterprise Linux 7.2 based on training environments for the RHCSA and RHCE examination certifications.*
 
 ### **Current State:** *partially functional*
-
  In the present state rhel-labs will download the image archive, check md5sums, extract the archive, then return to an 
  updated tui interface. The user is prompted to install the server and md5sum checks are completed for server.img, then 
  the server is provisioned through virsh and additional menu's unlock.
