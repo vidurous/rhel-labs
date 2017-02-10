@@ -52,7 +52,7 @@ Dependencies
 |
 |
 
-| note         | more info     |
+| note         | info          |
 | :---:        |     :---      |
 | 1 | *RHEL-LABS's current functionality is limited to server.example.com. Lab execises are coming soon.* |
 | 2 | *Premade virtual based qemu images are prepared to provide users with throw away practice environments with additional unique supplemental lab execises that will be graded remotely automatically returning results or possibly displayed on an auto-generated python flash http page.* |
