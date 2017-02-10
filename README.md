@@ -58,9 +58,8 @@ RHEL-LABS
 **Todo List**
 ***
 >
-*   Additional testing of encryption methods and how the application delivers a lab users a grading script; honest 
-    grading and attempt count are highest priority and currently I have a working method to deal with both. This 
-    intergration partially exists and satisfies the apache license. 
+*   Additional testing of encryption methods and how the application delivers a lab users a grading script; honest grading 
+and attempt count are highest priority and currently I have a working method to deal with both. This intergration partially exists and satisfies the apache license. 
 >
 *   Intergrate delivery of completed lab exercises to the grading server(code coming soon) presenting the results 
     on a dynamic python flask webpage.
