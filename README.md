@@ -1,6 +1,6 @@
 ### RHEL-LABS
-#### **Goals:** *32 chapters = ( 16 chapters RHCSA ) + ( 16 chapters RHCE )*
-#### **Current State:** *partial functionality* <sup>1</sup>
+**Goals:** *32 chapters = ( 16 chapters RHCSA ) + ( 16 chapters RHCE )*
+**Current State:** *partial functionality* <sup>1</sup>
 
 Create a virtual training environment<sup>2</sup> that consists of a server and desktop virtual machines<sup>3</sup> running Red Hat Enterprise Linux 7.2. This environment is based on other similar training environments<sup>4</sup> used at Red Hat and other learning institutes as a study aid for the RHCSA and RHCE certification examinations.
 
