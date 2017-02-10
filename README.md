@@ -55,7 +55,7 @@ Dependencies
 --------  -----------------------------------------------------------
 keyword   text
 --------  -----------------------------------------------------------
-<sup>1</sup> *RHEL-LABS's current functionality is limited to 
+   1        RHEL-LABS's current functionality is limited to 
             server.example.com. Premade virtual based qemu images are 
             prepared to provide users with throw away practice 
             environments with additional unique supplemental lab 
@@ -67,7 +67,7 @@ keyword   text
             chapters are completed. The idea is to become familiar 
             in understanding and evaluating where things may have 
             gone wrong which is similiar in form to how Red Hat 
-            certifications exam work.*     
+            certifications exam work.     
 
 <sup>2</sup>
 
