@@ -57,27 +57,22 @@ RHEL-LABS
 
 **Todo List**
 
-    *   Additional testing of encryption methods and how the application
-        delivers a lab users a grading script; honest grading and attempt
-        count are highest priority and currently I have a working method to
-        deal with both. This intergration partially exists and satisfies 
-        the apache license. 
+    *   Additional testing of encryption methods and how the application delivers a lab users a grading script; honest 
+        grading and attempt count are highest priority and currently I have a working method to deal with both. This 
+        intergration partially exists and satisfies the apache license. 
 
-    *   Intergrate delivery of completed lab exercises to the grading
-        server(code coming soon) presenting the results on a dynamic python
-        flask webpage.
+    *   Intergrate delivery of completed lab exercises to the grading server(code coming soon) presenting the results 
+        on a dynamic python flask webpage.
 
     *   Menu design for desktop.example.com that mirrors server.example.com.
 
-    *   Changes to the server.example.com cloud image with internal
-        snapshots (possibly re-provisioned using implantisomd5).
+    *   Changes to the server.example.com cloud image with internal snapshots (possibly re-provisioned using implantisomd5).
 
     *   Snapshot functionality for server.example.com.
 
     *   Lab intergration of the tui based on dynamic state files.
 
-    *   All current error handling logic migrated to proper error functions
-        in initialize-lab.
+    *   All current error handling logic migrated to proper error functions in initialize-lab.
 
     *   Screenshots and video overview added to README.
 
