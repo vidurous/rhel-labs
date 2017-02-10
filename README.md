@@ -20,7 +20,7 @@ RHEL-LABS
 
 ### Fedora 24+ ###
 
-**Required RPMS:**
+**required rpms:**
 ~~~
  # dnf install wget pv dialog findutils gawk sed grep coreutils -y && dnf group install with-optional virtualization -y
 ~~~
@@ -35,7 +35,7 @@ RHEL-LABS
 
 ### RHEL 7 ###
 
-**Required RPMS:**
+**required rpms:**
 ~~~
  # yum install wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y
 ~~~
