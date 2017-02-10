@@ -1,6 +1,6 @@
 RHEL-LABS
 =========
-### **Current State:** *partially functional* <sup>1</sup>
+**Current State:** *partially functional* <sup>1</sup>
 
 Create a virtual training environment<sup>2</sup> that consists of a server and desktop virtual machine<sup>3</sup> running Red Hat Enterprise Linux 7.2 which is based on a similar training environments<sup>4</sup> used to help study for the RHCSA and RHCE examination certifications.
 
