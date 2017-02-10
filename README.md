@@ -1,8 +1,7 @@
 RHEL-LABS
----
+=========
 
 **Goals:** *32 chapters = ( 16 chapters RHCSA ) + ( 16 chapters RHCE )*
-
 **Current State:** *partial functionality* <sup>1</sup>
 
 Create a virtual training environment<sup>2</sup> that consists of a server and desktop virtual machines<sup>3</sup> running Red Hat Enterprise Linux 7.2. This environment is based on other similar training environments<sup>4</sup> used at Red Hat and other learning institutes as a study aid for the RHCSA and RHCE certification examinations.
@@ -13,7 +12,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 
 
 Fedora 24+
----
+==========
 
 ```
 # Required rpm packages:
@@ -28,7 +27,7 @@ Fedora 24+
 ```
 
 RHEL 7
----
+======
 
 ```
 # Required rpm packages:
@@ -42,14 +41,14 @@ RHEL 7
 ```
 
 **All-In-One Install** <sup>11</sup>
----
+======================
 
 ~~~
  # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui || git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui
 ~~~
 
 **Footnotes**
----
+=============
 
 | *note*       | *info*        |
 | :---:        |     :---      |
@@ -66,7 +65,7 @@ RHEL 7
 | 11 | *root user only while using rhel-labs.*
 
 **Upcoming Features**
----
+=====================
 
 - [ ] Additional testing of encryption methods and how the application delivers a lab users a grading script; honest grading 
 and attempt count are highest priority and currently I have a working method to deal with both. This intergration partially exists and satisfies the apache license. 
