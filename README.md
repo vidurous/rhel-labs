@@ -11,6 +11,8 @@ Multiple subproccess are handed off when navigating through dialog menus based o
 Dependencies
 ===========
 |
+|
+
  Fedora 24+
 ---
  >
@@ -24,8 +26,7 @@ Dependencies
  ~~~
   # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom
  ~~~
-|
-|
+
  RHEL 7
 ---
  >
@@ -42,6 +43,7 @@ Dependencies
 
 |
 |
+
 ### **All-in-one install:**
 * *(gain root user first)*
 ~~~
