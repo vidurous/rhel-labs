@@ -55,39 +55,39 @@ Dependencies
 --------  -----------------------------------------------------------
 keyword   text
 --------  -----------------------------------------------------------
-   1        RHEL-LABS's current functionality is limited to 
-            server.example.com. Premade virtual based qemu images are 
-            prepared to provide users with throw away practice 
-            environments with additional unique supplemental lab 
-            execises that will be graded remotely automatically 
-            returning results or possibly displayed on an 
-            auto-generated python flash http page. Scoring will 
-            be based on 300 point scale and correct answers will 
-            not be provided, only your total score once all 16 
-            chapters are completed. The idea is to become familiar 
-            in understanding and evaluating where things may have 
-            gone wrong which is similiar in form to how Red Hat 
-            certifications exam work.     
+1         RHEL-LABS's current functionality is limited to 
+          server.example.com. Premade virtual based qemu images are 
+          prepared to provide users with throw away practice 
+          environments with additional unique supplemental lab 
+          execises that will be graded remotely automatically 
+          returning results or possibly displayed on an 
+          auto-generated python flash http page. Scoring will 
+          be based on 300 point scale and correct answers will 
+          not be provided, only your total score once all 16 
+          chapters are completed. The idea is to become familiar 
+          in understanding and evaluating where things may have 
+          gone wrong which is similiar in form to how Red Hat
+          certifications exam work.
 
-<sup>2</sup>
+2
 
-<sup>3</sup>
+3
 
-<sup>4</sup>
+4
 
-<sup>5</sup>
+5
 
-<sup>6</sup>
+6
 
-<sup>7</sup>
+7
 
-<sup>8</sup>
+8
 
-<sup>9</sup>
+9
 
-<sup>10</sup>
+10
 
-<sup>11</sup> gain root user first
+11        gain root user first
 --------  -----------------------------------------------------------
 
 
