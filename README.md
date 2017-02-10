@@ -10,9 +10,6 @@ Multiple subproccess are handed off when navigating through dialog menus based o
 
 Dependencies
 ---
-**Known Issues:** *No current fs disk space checks. Images are 2.4GB when downloaded as an archive and 20GB after uncompressed utilizing space in /home.*
-
-
 ### Fedora 24+
 >
 *required rpms:*
@@ -41,7 +38,7 @@ Dependencies
 ~~~
 
 
-**Install commands (copy all in one line): as root:**
+**Install: as root:**
 ~~~
  # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui || git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui
 ~~~
