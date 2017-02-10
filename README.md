@@ -1,10 +1,7 @@
 Current State: Not Complete
 ---------------------------
 ~~~
- In the present state rhel-labs will download the image archive, check md5sums, extract the archive,
- then return to an updated tui interface. The user is prompted to install the server and md5sum 
- checks are completed for server.img, then the server is provisioned through virsh and additional 
- menu's unlock.
+ In the present state rhel-labs will download the image archive, check md5sums, extract the archive, then return to an updated tui interface. The user is prompted to install the server and md5sum checks are completed for server.img, then the server is provisioned through virsh and additional menu's unlock.
 
  Multiple subproccess are handed off when navigating through dialog menus based on changes to state
  file tests to indicate which dialog menu is used. The server menu is close to having full 
