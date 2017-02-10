@@ -1,6 +1,5 @@
 Current State: Not Complete
 ---------------------------
-~~~
 In the present state rhel-labs will download the image archive, check
 md5sums, extract the archive, then return to an updated tui interface.
 The user is prompted to install the server and md5sum checks are
@@ -14,15 +13,13 @@ control menu's server will have start, stop, reboot, snapshot and revert
 functionality. Once this functionality is complete additional labs will
 be created (chapter 1 and chapter 2) are already created. To check out
 current progress install instructions below.
-~~~
+
 
 Dependencies
 ------------
-~~~
 Known Issues: No current fs disk space checks (coming soon after I
 sleep). Images are 2.4GB when downloaded as an archive and 20GB after
 uncompressed utilizing space in /home.
-~~~
 
 Fedora 24+
 ------
