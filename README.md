@@ -66,7 +66,6 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 |
 
 **Todo List**
----
 
 - [ ] Additional testing of encryption methods and how the application delivers a lab users a grading script; honest grading 
 and attempt count are highest priority and currently I have a working method to deal with both. This intergration partially exists and satisfies the apache license. 
