@@ -49,7 +49,7 @@ Dependencies
  # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui || git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui
 ~~~
 
-| footnote | description |
+| *footnote* | *description* |
 | :---:        |     :---      |
 | 1 | RHEL-LABS's current functionality is limited to server.example.com. Premade virtual based qemu images are prepared to provide users with throw away practice environments with additional unique supplemental lab execises that will be graded remotely automatically returning results or possibly displayed on an auto-generated python flash http page. Scoring will be based on 300 point scale and correct answers will not be provided, only your total score once all 16 chapters are completed. The idea is to become familiar in understanding and evaluating where things may have gone wrong which is similiar in form to how Red Hat certifications exam work. |
 
