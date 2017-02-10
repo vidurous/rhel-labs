@@ -53,16 +53,26 @@ Dependencies
 
 
 
-<sup>1</sup> *(gain root user first)*
+<sup>1</sup>
+
 <sup>2</sup>
+
 <sup>3</sup>
+
 <sup>4</sup>
+
 <sup>5</sup>
+
 <sup>6</sup>
+
 <sup>7</sup>
+
 <sup>8</sup>
+
 <sup>9</sup>
+
 <sup>10</sup>
+
 <sup>11</sup> gain root user first
 
 
