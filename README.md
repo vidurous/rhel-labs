@@ -39,7 +39,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 |
 |
 
-##### **All-In-One Install** <sup>11</sup>
+#### **All-In-One Install** <sup>11</sup>
 ~~~
  # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui || git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && mkdir -p /home/root/bin && cp -af lab-tui initialize-lab /home/root/bin/ && cd /home/root/bin/ && chmod +x {lab-tui,initialize-lab} && ./lab-tui
 ~~~
@@ -47,7 +47,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 |
 |
 
-##### **Footnotes**
+#### **Footnotes**
 
 | *note*       | *info*        |
 | :---:        |     :---      |
