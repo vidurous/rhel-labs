@@ -10,7 +10,7 @@ Multiple subproccess are handed off when navigating through dialog menus based o
 
 Dependencies
 ---
-Known Issues: *No current fs disk space checks. Images are 2.4GB when downloaded as an archive and 20GB after uncompressed utilizing space in /home.*
+**Known Issues:** *No current fs disk space checks. Images are 2.4GB when downloaded as an archive and 20GB after uncompressed utilizing space in /home.*
 
 
 ### Fedora 24+
