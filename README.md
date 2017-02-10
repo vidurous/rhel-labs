@@ -22,7 +22,6 @@ Dependencies
     # dnf install git wget pv dialog findutils gawk sed grep coreutils -y && dnf group install with-optional virtualization -y
 ~~~
 >
->
 ~~~
     ### Inital checks should generate /dev/random and /dev/urandom (used for random mac address assignment) however if this fails manaul creation is needed.
    
@@ -37,7 +36,6 @@ RHEL 7
 
     # yum install git wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y
 ~~~
->
 >
 ~~~
     ### Inital checks should generate /dev/random and /dev/urandom (used for random mac address assignment) however if this fails manaul creation is needed.
