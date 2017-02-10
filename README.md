@@ -53,7 +53,7 @@ Dependencies
 
 
 
-[^footnote]:*(gain root user first)*
+[^footnote]: *(gain root user first)*
 
 
 
