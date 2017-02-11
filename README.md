@@ -35,7 +35,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 # mknod -m 666 /dev/random c 1 8 && mknod -m 666 /dev/urandom c 1 9 && chown root:root /dev/random /dev/urandom
 ```
 
-##### **All-In-One Install** <sup>11</sup>
+#### **All-In-One Install** <sup>11</sup>
 ~~~
  # lab-tui && initialize-lab -->> /usr/local/sbin/
 
