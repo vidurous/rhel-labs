@@ -102,24 +102,24 @@ fi
 	esac
     	if [ "$choice" = "Exit" ]; then
     		reset && exit || echo "Program has failed to exit"
-	elif [ "$choice" = "Back" ]; then
-		rm -f /home/root/rhel-labs/.install/.lab-tui-Server && exec /usr/local/sbin/lab-tui || echo "Entering the /usr/local/sbin/lab-tui-server menu has failed, please check the /usr/local/sbin/lab-tui-server dialog menu"
+	    elif [ "$choice" = "Back" ]; then
+		        rm -f /home/root/rhel-labs/.install/.lab-tui-Server && exec /usr/local/sbin/lab-tui || echo "Entering the /usr/local/sbin/lab-tui-server menu has failed, please check the /usr/local/sbin/lab-tui-server dialog menu"
     	elif [ "$choice" = "Install" ]; then
-    		/usr/local/sbin/initialize-lab clone && /usr/local/sbin/initialize-lab labmd5 && /usr/local/sbin/initialize-lab tar && exec /usr/local/sbin/lab-tui || echo "Downloading the lab has failed, please check the /usr/local/sbin/lab-tui-build script"
+    		    /usr/local/sbin/initialize-lab clone && /usr/local/sbin/initialize-lab labmd5 && /usr/local/sbin/initialize-lab tar && exec /usr/local/sbin/lab-tui || echo "Downloading the lab has failed, please check the /usr/local/sbin/lab-tui-build script"
     	elif [ "$choice" = "Install VM" ]; then
-		/usr/local/sbin/initialize-lab server_1 && /usr/local/sbin/initialize-lab server_2 && /usr/local/sbin/initialize-lab server_3 && /usr/local/sbin/initialize-lab server_4 && sleep 5 && exec /usr/local/sbin/lab-tui || echo "Failed to install VM Server stage 1 through 4"
+		        /usr/local/sbin/initialize-lab server_1 && /usr/local/sbin/initialize-lab server_2 && /usr/local/sbin/initialize-lab server_3 && /usr/local/sbin/initialize-lab server_4 && sleep 5 && exec /usr/local/sbin/lab-tui || echo "Failed to install VM Server stage 1 through 4"
     	elif [ "$choice" = "Labs" ]; then
-    		/usr/local/sbin/lab-tui-labs || echo "Entering the /home/$USER/bin/lab-tui-labs menu has failed, please check the /usr/local/sbin/lab-tui-labs script"
+    		    /usr/local/sbin/lab-tui-labs || echo "Entering the /home/$USER/bin/lab-tui-labs menu has failed, please check the /usr/local/sbin/lab-tui-labs script"
     	elif [ "$choice" = "Server" ]; then
-    		touch /home/root/rhel-labs/.install/.lab-tui-Server && exec /usr/local/sbin/lab-tui || rm -f /home/root/rhel-labs/.install/.lab-tui-Server && echo "Entering the /usr/local/sbin/lab-tui-server menu has failed, please check the /usr/local/sbin/lab-tui-server dialog menu"
-	elif [ "$choice" = "Reboot" ]; then
-		/usr/local/sbin/initialize-lab __serverreboot && exec /usr/local/sbin/lab-tui || echo "failed to run __serverreboot check functions" && reset
+    		    touch /home/root/rhel-labs/.install/.lab-tui-Server && exec /usr/local/sbin/lab-tui || rm -f /home/root/rhel-labs/.install/.lab-tui-Server && echo "Entering the /usr/local/sbin/lab-tui-server menu has failed, please check the /usr/local/sbin/lab-tui-server dialog menu"
+	    elif [ "$choice" = "Reboot" ]; then
+		        /usr/local/sbin/initialize-lab __serverreboot && exec /usr/local/sbin/lab-tui || echo "failed to run __serverreboot check functions" && reset
         elif [ "$choice" = "Stop" ]; then
                 /usr/local/sbin/initialize-lab __serverstop && sleep 1 && exec /usr/local/sbin/lab-tui || echo "failed to run __serverstop check functions" && reset
         elif [ "$choice" = "Start" ]; then
                 /usr/local/sbin/initialize-lab __serverstart && exec /usr/local/sbin/lab-tui || echo "failed to run __serverstart check functions" && reset
         elif [ "$choice" = "Console" ]; then
                 /usr/local/sbin/initialize-lab __serverconsole && sleep 4 && exec /usr/local/sbin/lab-tui || echo "failed to run __serverconsole check functions" && reset
-  	else
-    		reset && echo "Failed to call /usr/local/sbin/lab-tui " && exit || exit
+  	    else
+    		    reset && echo "Failed to call /usr/local/sbin/lab-tui " && exit || exit
     	fi
