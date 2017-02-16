@@ -37,9 +37,9 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 
 #### **All-In-One Install** <sup>11</sup>
 ~~~
- ## lab-tui && initialize-lab -->> /usr/local/sbin/
+ ## rhel-labs && rhel-labs-functions.cfg -->> /usr/local/sbin/
 
- # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && chmod +x {lab-tui,initialize-lab} && cp -af lab-tui initialize-lab /usr/local/sbin/ && lab-tui || echo "make sure all the deps are installed and you have an active internet connection"
+ # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && chmod +x {rhel-labs,rhel-labs-functions.cfg} && cp -af rhel-labs rhel-labs-functions.cfg /usr/local/sbin/ && rhel-labs || echo "make sure all the deps are installed and you have an active internet connection"
 ~~~
 
 #### **Footnotes**
