@@ -1,5 +1,7 @@
 ### RHEL-LABS
 ---
+[![Alpha demo rhel-labs:](https://img.youtube.com/vi/GPLBP6I-8ck/0.jpg)](https://www.youtube.com/watch?v=GPLBP6I-8ck)
+
 **goals:** *32 chapters = ( 16 chapters RHCSA ) + ( 16 chapters RHCE )*
 **current state:** *partial functionality* <sup>1</sup>
 
