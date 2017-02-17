@@ -1,5 +1,6 @@
-
-| **RHEL-LABS**  | *project overview* |
+### RHEL-LABS
+---
+| **Alpha demo:**  | *project overview* |
 | :---:            | :--- |
 | [![](https://img.youtube.com/vi/GPLBP6I-8ck/0.jpg)](https://www.youtube.com/watch?v=GPLBP6I-8ck) | Linux based virtual training environment for the RHCSA and RHCE examination certifications. **goals:** *32 chapters = ( 16 chapters RHCSA ) + ( 16 chapters RHCE )* **current state:** *partial functionality* <sup>1</sup> 
 
