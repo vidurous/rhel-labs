@@ -1,16 +1,13 @@
-### RHEL-LABS
----
-[![](https://img.youtube.com/vi/GPLBP6I-8ck/0.jpg)](https://www.youtube.com/watch?v=GPLBP6I-8ck)
 
-**goals:** *32 chapters = ( 16 chapters RHCSA ) + ( 16 chapters RHCE )*
-**current state:** *partial functionality* <sup>1</sup>
+| **RHEL-LABS**  | *project overview* |
+| :---:            | :--- |
+| [![](https://img.youtube.com/vi/GPLBP6I-8ck/0.jpg)](https://www.youtube.com/watch?v=GPLBP6I-8ck) | Linux based virtual training environment for the RHCSA and RHCE examination certifications. **goals:** *32 chapters = ( 16 chapters RHCSA ) + ( 16 chapters RHCE )* **current state:** *partial functionality* <sup>1</sup> 
 
 Create a virtual training environment<sup>2</sup> that consists of a server and desktop virtual machines<sup>3</sup> running Red Hat Enterprise Linux 7.2. This environment is based on other similar training environments<sup>4</sup> used at Red Hat and other learning institutes as a study aid for the RHCSA and RHCE certification examinations.
 
 In the present state rhel-labs will download an image archive,<sup>5</sup> validate checksums, extract the archive, then return to an tui interface. The user is then prompted to install server.example.com and checksums are completed for base image,<sup>6</sup> then provisioned through virsh which allows additional menus to unlock.
 
 Subproccess are used in a controlled fashion handed off when navigating through dialog menus based on changes to state file conditionals<sup>7</sup> indicating which dialog menu to use. The first vm server.example.com is close to being full functionality; at the present moment snapshots<sup>8</sup> are outstanding. Both vms will have a control menu<sup>9</sup> with start, stop, reboot, snapshot and revert functionality. Once core functionality<sup>10</sup> is complete additional labs will be created (chapter 1 and chapter 2) are already created. To check out current progress see install instructions below.
-
 
 #### Fedora 24+
 ```
