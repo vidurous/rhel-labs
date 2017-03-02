@@ -1,0 +1,76 @@
+##
+DIALOGRC: /usr/local/sbin/conf/.dialogrc
+xx: /home/rhel-labs/rhel-labs/.install/.
+location: http://irondung.net:8120/training/
+sudo: /usr/bin/sudo
+mkdir: /usr/bin/mkdir -p
+chown: /usr/bin/chown -R
+cd: /usr/bin/cd
+chmod: /usr/bin/chmod
+DPATH: /home/rhel-labs/rhel-labs/.install
+install_dir: /home/rhel-labs/rhel-labs/.install
+qemu_dir: /home/rhel-labs/rhel-labs/.storage
+archive1: RHEL7.2-HOMELAB.tar.gz
+m5sum_archive1: RHEL7.2-HOMELAB.tar.gz_md5sum
+download_url: http://irondung.net:8120/training/
+m5sum_server: .server.example.com_md5sum
+m5sum_server_post: .server.example.com_md5sum_post
+server_image: server.qcow
+virt1: server.example.com
+virt1_image: server.example.com.qcow
+virt2: desktop.exmaple.com
+virt3: util.example.com
+virt4: hyper.example.com
+
+
+P1CHECK: ${var["install_dir"]}
+P2CHECK: /dev/urandom
+P3CHECK: ${var["chown"]} rhel-labs:qemu ${var["qemu_dir"]}
+P4CHECK: ${var["qemu_dir"]}
+P5CHECK: ${var["chown"]} rhel-labs:qemu ${var["install_dir"]}
+P6CHECK: ${var["chmod"]} 2775 /home/rhel-labs/rhel-labs/.*
+P7CHECK: ${var["qemu_dir"]}
+download_arch: ${var["download_url"]}${var["archive1"]}
+download_md5sum: ${var["download_url"]}${var["m5sum_archive1"]}
+download_servermd5: ${var["download_url"]}${var["m5sum_server"]}
+domain: example.com
+report_cc: someuser@example.com, someuser@example.com, someuser@example.com, someuser@example.com
+email_notify: true
+root_user: root
+user: rhel-labs
+install_check: virsh list --all | grep -o ${var["virt1"]} | wc -l
+
+
+size: ls -li | grep -e '"''"${var["archive1"]}$"''"' | awk '"'''{print $6}'''"'
+grep1: grep -o [0-9][0-9]% |grep -o [0-9][0-9]
+grep2: grep -o [0-9]% | grep -o [0-9]
+grep3: grep -o [0-9][0-9][0-9]% | grep -o [0-9][0-9][0-9]
+grep4: grep -o [0-9][0-9][0-9]% | grep -o [0-9][0-9][0-9]
+download_kill: ps auxx | grep -v grep | egrep '"''"wget|clone"''"' | grep rhel-la | awk '"'''{print $2}'''"' | xargs kill -9
+download_kill2: ps auxx | grep -v grep | egrep '"''"wget|md5|tar"''"' | grep rhel-la | awk '"'''{print $2}'''"' | xargs kill -9
+md5server_kill: ps auxx | grep -v grep | egrep '"''"wget|md5"''"' | grep rhel-la | awk '"'''{print $2}'''"' | xargs kill -9
+tar_kill: ps auxx | grep -v grep | egrep -i '"''"pv|tar"''"' | grep rhel-la | awk '"'''{print $2}'''"' | xargs kill -9
+virt_install_kill: ps auxx| grep -v grep | grep -v vim | grep rhel-labs | awk '"'''{print $2}'''"' | xargs kill -9
+reboot_kill: ps auxx | grep -v grep | grep -v vim | grep lab | grep server_ | awk '"'''{print $2}'''"' | xargs kill -9
+pv_tar: (pv -L 5m -n ${var["archive1"]} | tar xzf - -C /home/rhel-labs/rhel-labs/.storage/ ) 2>&1
+CD: cd ${var["install_dir"]} || mkdir -p ${var["install_dir"]} && cd ${var["install_dir"]}
+md5check: touch md5sum_post && md5sum ${var["archive1"]} | tee md5sum_post
+md5CHECK: diff <(sort md5sum_post) <(sort ${var["m5sum_archive1"]})|wc -l
+md5check2: touch ${var["m5sum_server_post"]} &&  md5sum ${var["server_image"]} | tee ${var["m5sum_server_post"]}
+md5CHECK2: diff <(sort ${var["m5sum_server_post"]}) <(sort ${var["m5sum_server"]})|wc -l
+mac: tr -dc A-F0-9 < /dev/urandom | head -c 10 | sed -r '"'''s/(..)/\1:/g;s/:$//;s/^/02:/'''"'
+reboot: sudo virsh --connect qemu:///system reboot ${var["virt1"]} 1> >(__syslog) 2>&1
+virtcheck_server: sudo virsh list --all | grep -o ${var["virt1"]} | wc -l
+virshcheck_server: sudo systemctl status libvirtd|grep -o '"''"active (running)"''"' | wc -l
+vmpwdown_server: sudo virsh destroy ${var["virt1"]}
+vmdelete_server: sudo virsh undefine ${var["virt1"]}
+virtcheck: sudo virsh list --all | grep -o '"''"${var["virt1"]}"''"'| wc -l
+libvirtd_start: sudo systemctl start libvirtd
+libvirtd_enable: sudo systemctl enable libvirtd
+virtstop: sudo virsh --connect qemu:///system destroy ${var["virt1"]} 1> >(__syslog) 2>&1
+netcheck: sudo virsh net-list --all | grep rhel-labs | awk '"'''{print $1}'''"' | wc -l
+virtstart: sudo virsh --connect qemu:///system start ${var["virt1"]} 1> >(__syslog) 2>&1
+kill_console: ps auxx | grep -v grep | grep -v vim | egrep '"''"virt-viewer|console"''"' | grep server.example.com | awk '"'''{print $2}'''"' | xargs kill -9
+virtconsole: sudo virt-viewer ${var["virt1"]} 1> >(__syslog) 2>&1
+netdelete: sudo virsh net-destroy rhel-labs
+netcreate: sudo virsh net-create /usr/share/libvirt/networks/rhel-labs.xml
