@@ -38,7 +38,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 ~~~
  ## -->> user: rhel-labs pass: redhat requires sudo or root to install
 
- # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && sudo ./rhel-labs-functions.cfg install && su - rhel-labs"
+ # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && sudo ./rhel-labs-functions.cfg install && su - rhel-labs
 ~~~
 
 #### **Footnotes**
