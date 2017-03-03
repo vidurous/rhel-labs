@@ -13,7 +13,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 ```
 ## Required rpm packages:
   
-# dnf install git wget pv dialog findutils gawk sed grep coreutils -y && dnf group install with-optional virtualization -y
+# dnf install git wget pv dialog findutils gawk sed grep coreutils -y && dnf group install virtualization -y
 ```
 
 ```
@@ -26,7 +26,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 ```
 ## Required rpm packages:
 
-# yum install git wget pv dialog findutils gawk sed grep coreutils -y && yum group install with-optional virtualization -y
+# yum install git wget pv dialog findutils gawk sed grep coreutils -y && yum group install virtualization -y
 ```
 ```
 ## Inital checks should generate /dev/random and /dev/urandom (used for random mac address assignment) however if this fails manaul creation is needed.
@@ -36,9 +36,9 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 
 #### **All-In-One Install** <sup>11</sup>
 ~~~
- ## rhel-labs && rhel-labs-functions.cfg -->> /usr/local/sbin/
+ ## -->> user: rhel-labs pass: redhat requires sudo or root to install
 
- # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && chmod +x {rhel-labs,rhel-labs-functions.cfg} && cp -af rhel-labs rhel-labs-functions.cfg /usr/local/sbin/ && rhel-labs || echo "make sure all the deps are installed and you have an active internet connection"
+ # git clone https://github.com/vidurous/rhel-labs && cd rhel-labs/ && sudo ./rhel-labs-functions.cfg install && su - rhel-labs"
 ~~~
 
 #### **Footnotes**
