@@ -56,10 +56,10 @@ pv_tar: (pv -L 5m -n ${var["archive1"]} | tar xzf - -C /home/rhel-labs/rhel-labs
 CD: cd ${var["install_dir"]} || mkdir -p ${var["install_dir"]} && cd ${var["install_dir"]}
 md5check: touch md5sum_post && md5sum ${var["archive1"]} | tee md5sum_post
 md5CHECK: diff <(sort md5sum_post) <(sort ${var["m5sum_archive1"]})|wc -l
-md5check2: touch ${var["m5sum_server_post"]} &&  md5sum ${var["server_image"]} | tee ${var["m5sum_server_post"]}
+md5check2: touch ${var["m5sum_server_post"]} &&  md5sum ${var["virt1_image"]} | tee ${var["m5sum_server_post"]}
 md5CHECK2: diff <(sort ${var["m5sum_server_post"]}) <(sort ${var["m5sum_server"]})|wc -l
 mac: tr -dc A-F0-9 < /dev/urandom | head -c 10 | sed -r '"'''s/(..)/\1:/g;s/:$//;s/^/02:/'''"'
-reboot: sudo virsh --connect qemu:///system reboot ${var["virt1"]} 1> >(__syslog) 2>&1
+reboot: sudo virsh --connect qemu:///system reboot ${var["virt1"]} &> >(__syslog)
 virtcheck_server: sudo virsh list --all | grep -o ${var["virt1"]} | wc -l
 virshcheck_server: sudo systemctl status libvirtd|grep -o '"''"active (running)"''"' | wc -l
 vmpwdown_server: sudo virsh destroy ${var["virt1"]}
@@ -67,10 +67,10 @@ vmdelete_server: sudo virsh undefine ${var["virt1"]}
 virtcheck: sudo virsh list --all | grep -o '"''"${var["virt1"]}"''"'| wc -l
 libvirtd_start: sudo systemctl start libvirtd
 libvirtd_enable: sudo systemctl enable libvirtd
-virtstop: sudo virsh --connect qemu:///system destroy ${var["virt1"]} 1> >(__syslog) 2>&1
+virtstop: sudo virsh --connect qemu:///system destroy ${var["virt1"]} &> >(__syslog)
 netcheck: sudo virsh net-list --all | grep rhel-labs | awk '"'''{print $1}'''"' | wc -l
-virtstart: sudo virsh --connect qemu:///system start ${var["virt1"]} 1> >(__syslog) 2>&1
+virtstart: sudo virsh --connect qemu:///system start ${var["virt1"]} &> >(__syslog)
 kill_console: ps auxx | grep -v grep | grep -v vim | egrep '"''"virt-viewer|console"''"' | grep server.example.com | awk '"'''{print $2}'''"' | xargs kill -9
-virtconsole: sudo virt-viewer ${var["virt1"]} 1> >(__syslog) 2>&1
+virtconsole: sudo virt-viewer ${var["virt1"]} &> >(__syslog)
 netdelete: sudo virsh net-destroy rhel-labs
 netcreate: sudo virsh net-create /usr/share/libvirt/networks/rhel-labs.xml

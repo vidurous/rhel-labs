@@ -83,11 +83,11 @@ trap "rm -f $xx" 0 1 2 5 15
 		trap "rm -f $xx" 0 1 2 5 15
 		cd $HOME
 
-		$DIALOG --nocancel --no-kill --clear --backtitle "| RHEL-LABS |" \
+		$DIALOG --nocancel --no-kill  --backtitle "| RHEL-LABS |" \
 			--menu " \n
 		\n
 		   Select either 'Install' or 'Exit': \n
-			" 14 75 20 \
+			" 25 75 25 \
 			"Exit"  "Exit the application" \
 			"Install"  "Install lab requirements and prerequisites" 2> $xx || echo "Failed to start rhel-labs" | __syslog
 
@@ -97,17 +97,19 @@ trap "rm -f $xx" 0 1 2 5 15
 		
 		HOME=${var["DPATH"]}
 		USER="rhel-labs"
-		virtcheck=`virtcheck 2>/dev/null` || virtcheck=${var["virtcheck"]} && virtcheck=`eval $virtcheck`
+		virtcheck=`virtcheck 2>/dev/null` || virtcheck=${var["virtcheck"]}
 		xx=`xx 2>/dev/null` || xx=${var["xx"]}stage2-$$
 		trap "rm -f $xx" 0 1 2 5 15
-            	cd $HOME
+        cd $HOME
+        virtcheck=`eval $virtcheck`
+
 			if [[ "$virtcheck" == "1" ]] && [[ ! -f $P1CHECK/.server-installed ]]; then
-                		touch "$P1CHECK/.server-installed"
+                touch $P1CHECK/.server-installed
 				exec /usr/local/sbin/rhel-labs
 			fi
 
-		$DIALOG --no-kill --nocancel --clear --backtitle "| RHEL-LABS |" \
-        		--menu "Install server.example.com" 14 75 20 \
+		$DIALOG --no-kill --nocancel  --backtitle "| RHEL-LABS |" \
+        		--menu "Install server.example.com" 25 75 25 \
         		"Exit"  "Exit the application" \
         		"Labs"  "Obtain graded lab execises based on chapters 1-16" \
 			    "Install VM"  "Install Server VM (NOT INSTALLED)" 2> $xx || echo "Failed to start rhel-labs stage 2" | __syslog
@@ -117,17 +119,18 @@ trap "rm -f $xx" 0 1 2 5 15
         elif [[ -f "$P1CHECK/.install-finished" ]] && [[ -f "$P1CHECK/.server-installed" ]] && [[ ! -f "$P1CHECK/.rhel-labs-Server" ]] && [[ -f $P4CHECK/server.qcow ]]; then
 		USER="rhel-labs"
 		HOME=${var["DPATH"]}
-		virtcheck=`virtcheck 2>/dev/null` || virtcheck=${var["virtcheck"]} && virtcheck=`eval $virtcheck`
+		virtcheck=`virtcheck 2>/dev/null` || virtcheck=${var["virtcheck"]}
 		xx=`xx 2>/dev/null` || xx=${var["xx"]}stage3-$$
-                trap "rm -f $xx" 0 1 2 5 15
-                cd $HOME
+        trap "rm -f $xx" 0 1 2 5 15
+        cd $HOME
+        virtcheck=`eval $virtcheck`
 
-		if [[ "$virtcheck" == "0" ]] && [[ -f $P1CHECK/.server-installed ]]; then 
+		if [[ "$virtcheck" == "0" ]] && [[ -e $P1CHECK/.server-installed ]]; then 
 			rm -f "$P1CHECK/.server-installed"
 			exec /usr/local/sbin/rhel-labs
 		fi
-		$DIALOG --nocancel --clear --no-kill --backtitle "| RHEL-LABS |" \
-			--menu "" 14 75 20 \
+		$DIALOG --nocancel  --backtitle "| RHEL-LABS |" \
+			--menu "server.example.com is installed:" 25 75 25 \
 			"Exit"  "Exit the application" \
 			"Labs"  "Obtain graded lab execises based on chapters 1-16" \
 			"Server"  "Server VM (INSTALLED)" 2> $xx || rm -f /home/rhel-labs/rhel-labs/.install/.rhel-labs-Server
@@ -135,20 +138,21 @@ trap "rm -f $xx" 0 1 2 5 15
 ### fourth stage of the dialog menu, if .install-finished .server-installed and .rhel-labs-Server are present then unlock.
 
         elif [[ -f "$P1CHECK/.install-finished" ]] && [[ -f "$P1CHECK/.server-installed" ]] && [[ -f "$P1CHECK/.rhel-labs-Server" ]] && [[ -f $P4CHECK/server.qcow ]]; then
-		USER="rhel-labs"
+		        USER="rhel-labs"
                 HOME=${var["DPATH"]}
-                virtcheck=`virtcheck 2>/dev/null` || virtcheck=${var["virtcheck"]} && virtcheck=`eval $virtcheck`
+                virtcheck=`virtcheck 2>/dev/null` || virtcheck=${var["virtcheck"]}
                 xx=`xx 2>/dev/null` || xx=${var["xx"]}stage4-$$
                 trap "rm -f $xx" 0 1 2 5 15
                 cd $HOME
+                virtcheck=`eval $virtcheck`
 
-		$DIALOG --nocancel --no-kill --clear --backtitle "| RHEL-LABS |" \
-			--menu "server.example.com:" 14 75 20 \
+		$DIALOG --nocancel  --backtitle "| RHEL-LABS |" \
+			--menu "server.example.com:" 25 75 25 \
 			"Back"  "Leave menu" \
-			"Console" "Open Console to server.example.com" \
-			"Start" "Start server.example.com" \
-			"Stop" "Stop server.example.com" \
-			"Reboot" "Reboot server.example.com" \
+			"Console" "Open Console" \
+			"Start" "Start server" \
+			"Stop" "Stop server" \
+			"Reboot" "Reboot server" \
 			"Reset" "Reset to default state" 2> $xx || rm -f /home/rhel-labs/rhel-labs/.install/.rhel-labs-Server
 
 ### if all else fails exit with unknown failure. 
@@ -175,36 +179,35 @@ trap "rm -f $xx" 0 1 2 5 15
 
 ### end of dialog case statement evaluation everything below this point will be executed based on user selected input from the dialog menu
 	esac
-    	if [ "$choice" = "Exit" ]; then
-    		reset && exit || echo "Program has failed to exit" | __syslog
+    if [ "$choice" = "Exit" ]; then
+        exit || echo "Program has failed to exit" | __syslog
 
 ### up one level in the dialog menu; use exec to re-execute the rhel-labs script detecting statefile changes
 	elif [ "$choice" = "Back" ]; then
-		        rm -f /home/rhel-labs/rhel-labs/.install/.rhel-labs-Server && exec /usr/local/sbin/rhel-labs 2> __syslog || echo "Entering the /usr/local/sbin/rhel-labs-server menu has failed, please check the /usr/local/sbin/rhel-labs-server dialog menu" | __syslog
+        rm -f /home/rhel-labs/rhel-labs/.install/.rhel-labs-Server && exec /usr/local/sbin/rhel-labs || echo "Entering the /usr/local/sbin/rhel-labs-server menu has failed, please check the /usr/local/sbin/rhel-labs-server dialog menu" | __syslog
 
 ### install functions from the first dialog menu;
 	elif [ "$choice" = "Install" ]; then
-			/usr/local/sbin/rhel-labs-functions.cfg clone 2> __syslog && /usr/local/sbin/rhel-labs-functions.cfg labmd5 2> __syslog && /usr/local/sbin/rhel-labs-functions.cfg tar 2> __syslog && exec /usr/local/sbin/rhel-labs 2> __syslog || echo "Downloading the lab has failed, please check the /usr/local/sbin/rhel-labs-build script" | __syslog
+        /usr/local/sbin/rhel-labs-functions.cfg clone && /usr/local/sbin/rhel-labs-functions.cfg labmd5 && /usr/local/sbin/rhel-labs-functions.cfg tar && exec /usr/local/sbin/rhel-labs || echo "Downloading the lab has failed, please check the /usr/local/sbin/rhel-labs-build script" | __syslog
 
 ### install server.example.com from the second stage dialog menu;
 	elif [ "$choice" = "Install VM" ]; then
-		        /usr/local/sbin/rhel-labs-functions.cfg server_1 2> __syslog && /usr/local/sbin/rhel-labs-functions.cfg server_2 2> __syslog && /usr/local/sbin/rhel-labs-functions.cfg server_3 2> __syslog wait && /usr/local/sbin/rhel-labs-functions.cfg server_4 2> __syslog wait; sleep 1 && exec /usr/local/sbin/rhel-labs 2> __syslog || echo "Failed to install VM Server stage 1 through 4" | __syslog
-
+        /usr/local/sbin/rhel-labs-functions.cfg server_1 && /usr/local/sbin/rhel-labs-functions.cfg server_2 && /usr/local/sbin/rhel-labs-functions.cfg server_3 && /usr/local/sbin/rhel-labs-functions.cfg server_4 && sleep 5 && exec /usr/local/sbin/rhel-labs || echo "Failed to install VM Server stage 1 through 4" | __syslog
 ### not implemented; labs menu
 	elif [ "$choice" = "Labs" ]; then
-    		    /usr/local/sbin/rhel-labs-labs || echo "Entering the /usr/local/sbin/rhel-labs-labs menu has failed, please check the /usr/local/sbin/rhel-labs script" | __syslog
+        /usr/local/sbin/rhel-labs-labs || echo "Entering the /usr/local/sbin/rhel-labs-labs menu has failed, please check the /usr/local/sbin/rhel-labs script" | __syslog
 
 ### sever menu changes dynamically for statefile changes;
 	elif [ "$choice" = "Server" ]; then
-    		    touch /home/rhel-labs/rhel-labs/.install/.rhel-labs-Server 2> __syslog && exec /usr/local/sbin/rhel-labs 2> __syslog || rm -f /home/rhel-labs/rhel-labs/.install/.rhel-labs-Server 2> __syslog && echo "Entering the /usr/local/sbin/rhel-labs-server menu has failed, please check the /usr/local/sbin/rhel-labs-server dialog menu" | __syslog
+        touch /home/rhel-labs/rhel-labs/.install/.rhel-labs-Server && exec /usr/local/sbin/rhel-labs || rm -f /home/rhel-labs/rhel-labs/.install/.rhel-labs-Server 2> __syslog && echo "Entering the /usr/local/sbin/rhel-labs-server menu has failed, please check the /usr/local/sbin/rhel-labs-server dialog menu" | __syslog
 
 ### reboot server.example.com;
 	elif [ "$choice" = "Reboot" ]; then
-		        /usr/local/sbin/rhel-labs-functions.cfg  __serverreboot 2> __syslog wait; exec /usr/local/sbin/rhel-labs || echo "failed to run __serverreboot check functions" | __syslog && reset
+        /usr/local/sbin/rhel-labs-functions.cfg  __serverreboot 2> __syslog wait; exec /usr/local/sbin/rhel-labs || echo "failed to run __serverreboot check functions" | __syslog && reset
 
 ### stop server.example.com
 	elif [ "$choice" = "Stop" ]; then
-                /usr/local/sbin/rhel-labs-functions.cfg  __serverstop 2> __syslog wait; exec /usr/local/sbin/rhel-labs || echo "failed to run __serverstop check functions" | __syslog && reset
+        /usr/local/sbin/rhel-labs-functions.cfg  __serverstop 2> __syslog wait; exec /usr/local/sbin/rhel-labs || echo "failed to run __serverstop check functions" | __syslog && reset
 
 ### start server.example.com
 	elif [ "$choice" = "Start" ]; then
@@ -212,13 +215,13 @@ trap "rm -f $xx" 0 1 2 5 15
 
 ### open a console for server.example.com
 	elif [ "$choice" = "Console" ]; then
-                /usr/local/sbin/rhel-labs-functions.cfg  __serverconsole 2> __syslog wait; sleep 1 && exec /usr/local/sbin/rhel-labs || echo "failed to run __serverconsole check functions" | __syslog && reset
+        /usr/local/sbin/rhel-labs-functions.cfg  __serverconsole 2> __syslog wait; sleep 1 && exec /usr/local/sbin/rhel-labs || echo "failed to run __serverconsole check functions" | __syslog && reset
 
 ### reset internal snapshot to default for server.example.com
-        elif [ "$choice" = "Reset" ]; then
-                exec /usr/local/sbin/rhel-labs || echo "failed to run __serverstop check functions" | __syslog && reset
+    elif [ "$choice" = "Reset" ]; then
+        exec /usr/local/sbin/rhel-labs || echo "failed to run __serverstop check functions" | __syslog && reset
 
 ### else conditional that failed to parse user selection or selection is somehow invalid
 	else
-		reset && echo "Failed to call /usr/local/sbin/rhel-labs " | __syslog && exit || exit
-    	fi
+		echo "Failed to call /usr/local/sbin/rhel-labs " | __syslog && exit || exit
+    fi
