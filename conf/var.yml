@@ -72,5 +72,7 @@ netcheck: sudo virsh net-list --all | grep rhel-labs | awk '"'''{print $1}'''"' 
 virtstart: sudo virsh --connect qemu:///system start ${var["virt1"]} &> >(__syslog)
 kill_console: ps auxx | grep -v grep | grep -v vim | egrep '"''"virt-viewer|console"''"' | grep server.example.com | awk '"'''{print $2}'''"' | xargs kill -9
 virtconsole: sudo virt-viewer ${var["virt1"]} &> >(__syslog)
-netdelete: sudo virsh net-destroy rhel-labs
+netdelete: sudo virsh net-destroy rhel-labs && sudo virsh net-undefine rhel-labs
 netcreate: sudo virsh net-create /usr/share/libvirt/networks/rhel-labs.xml
+netdefine: sudo virsh net-define /usr/share/libvirt/networks/rhel-labs.xml
+autostart: sudo virsh net-autostart rhel-labs && sudo virsh net-start rhel-labs

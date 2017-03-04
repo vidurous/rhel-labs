@@ -55,6 +55,8 @@ kill_console=${var["kill_console"]}
 netdelete=${var["netdelete"]}
 netcreate=${var["netcreate"]}
 virtconsole=${var["virtconsole"]}
+netdefine=${var["netdefine"]}
+autostart=${var["autostart"]}
 
 echo "Main dialog menu reloaded with exec or initial startup was completed" | __syslog
 exec -a rhel-labs 2> >(logger -s -t $(basename $0)) &
