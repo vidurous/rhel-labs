@@ -78,3 +78,4 @@ netdelete: sudo virsh net-destroy rhel-labs && sudo virsh net-undefine rhel-labs
 netcreate: sudo virsh net-create /usr/share/libvirt/networks/rhel-labs.xml
 netdefine: sudo virsh net-define /usr/share/libvirt/networks/rhel-labs.xml
 autostart: sudo virsh net-autostart rhel-labs && sudo virsh net-start rhel-labs
+downloadfd_tail: tail -n2 '"'''$xx'''"' | grep -o [0-9][0-9]% | grep -o [0-9][0-9] || tail -n2 '"'''$xx'''"' | grep -o [0-9]% | grep -o [0-9] || tail -n2 '"'''$xx'''"' | grep -o [0-9][0-9][0-9]% | grep -o [0-9][0-9][0-9] || tail -n5 '"'''$xx'''"' | grep -o [0-9][0-9][0-9]% | grep -o [0-9][0-9][0-9] || echo '"'''$xx'''"' | __syslog

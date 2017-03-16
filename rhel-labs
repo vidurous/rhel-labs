@@ -59,33 +59,34 @@ netcreate=${var["netcreate"]}
 virtconsole=${var["virtconsole"]}
 netdefine=${var["netdefine"]}
 autostart=${var["autostart"]}
+downloadfd_tail=${var["downloadfd_tail"]}
 
 echo "Main dialog menu reloaded with exec or initial startup was completed" | __syslog
-exec -a rhel-labs 2> >(logger -s -t $(basename $0)) &
-xx=`xx 2>/dev/null` || xx=${var["xx"]}stage-0$$
+exec -a rhel-labs 2> >(logger -s -t $(basename "$0")) &
+xx=$(xx 2>/dev/null) || xx=${var["xx"]}stage-0$$
 trap "rm -f $xx" 0 1 2 5 15
 
 	if   [[ ! -d $P1CHECK ]] &&  [[ ! -d $P7CHECK ]] || [[ ! -d $P1CHECK ]] || [[ ! -d $P7CHECK ]] ; then
-		/usr/bin/mkdir -p $P1CHECK && /usr/bin/mkdir -p $P7CHECK && /usr/bin/sudo $P5CHECK && /usr/bin/sudo /usr/bin/mkdir -p $P4CHECK && /usr/bin/sudo $P3CHECK && /usr/bin/cd $P1CHECK && eval $P6CHECK && echo "$P1CHECK created" || echo "Error making $P1CHECK"| __syslog
+        /usr/bin/mkdir -p "$P1CHECK" && /usr/bin/mkdir -p "$P7CHECK" && /usr/bin/sudo /usr/bin/mkdir -p "$P4CHECK" && /usr/bin/cd "$P1CHECK" && eval "$P6CHECK" && echo ""$P1CHECK" created" || echo "Error making "$P1CHECK", usually normal"| __syslog
 	
 	elif [[ -d $P1CHECK ]]; then
-		/usr/bin/cd $P1CHECK && /usr/bin/sudo $P5CHECK && /usr/bin/sudo /usr/bin/mkdir -p $P4CHECK && /usr/bin/sudo $P3CHECK && eval $P6CHECK || echo "Error executing $P1CHECK and/or $P3CHECK" | __syslog
+        /usr/bin/cd "$P1CHECK" && /usr/bin/sudo /usr/bin/mkdir -p "$P4CHECK" && eval "$P6CHECK" || echo "Error executing "$P1CHECK" and/or "$P3CHECK", usually normal" | __syslog
 	
 	elif [[ ! -d $P2CHECK ]]; then
 		__random
 	else
-		echo "$P1CHECK and $P2CHECK have been created" | __syslog
+		echo ""$P1CHECK" and "$P2CHECK" have been created" | __syslog
 	fi
 	
-	echo "checking for $P1CHECK/.install-finished" | __syslog
-	if [[ ! -f $P1CHECK/.install-finished ]]; then
+	echo "checking for "$P1CHECK"/.install-finished" | __syslog
+	if [[ ! -f "$P1CHECK"/.install-finished ]]; then
 
 	HOME=${var["DPATH"]}
 	USER="rhel-labs"
 		
-		xx=`xx 2>/dev/null` || xx=${var["xx"]}stage1-$$
+        xx=$(xx 2>/dev/null) || xx=${var["xx"]}stage1-$$
 		trap "rm -f $xx" 0 1 2 5 15
-		cd $HOME
+		cd "$HOME"
 
 		$DIALOG --nocancel --no-kill  --backtitle "| RHEL-LABS |" \
 			--menu " \n
@@ -93,22 +94,22 @@ trap "rm -f $xx" 0 1 2 5 15
 		   Select either 'Install' or 'Exit': \n
 			" 25 75 25 \
 			"Exit"  "Exit the application" \
-			"Install"  "Install lab requirements and prerequisites" 2> $xx || echo "Failed to start rhel-labs" | __syslog
+			"Install"  "Install lab requirements and prerequisites" 2> "$xx" || echo "Failed to start rhel-labs" | __syslog
 
 ### second stage of the dialog menu if .install-finished is present and .server-installed isn't then show on the server.example.com menu the vm is (NOT INSTALLED) and selecting this menu starts the install of server.example.com; additional conditional checks need to be added here.
 	echo "$P1CHECK/.install-finished found, on stage 1 menu" | __syslog
-	elif [[ -f "$P1CHECK/.install-finished" ]] && [[ ! -f "$P1CHECK/.server-installed" ]] && [[ -f $P4CHECK/server.qcow ]]; then
+	elif [[ -f $P1CHECK/.install-finished ]] && [[ ! -f $P1CHECK/.server-installed ]] && [[ -f $P4CHECK/server.qcow ]]; then
 		
 		HOME=${var["DPATH"]}
 		USER="rhel-labs"
-		virtcheck=`virtcheck 2>/dev/null` || virtcheck=${var["virtcheck"]}
+        virtcheck=$(virtcheck 2>/dev/null) || virtcheck=${var["virtcheck"]}
 		xx=`xx 2>/dev/null` || xx=${var["xx"]}stage2-$$
 		trap "rm -f $xx" 0 1 2 5 15
-        cd $HOME
-        virtcheck=`eval $virtcheck`
+        cd "$HOME"
+        virtcheck=$(eval "$virtcheck")
 
-			if [[ "$virtcheck" == "1" ]] && [[ ! -f $P1CHECK/.server-installed ]]; then
-                touch $P1CHECK/.server-installed
+			if [[ $virtcheck == 1 ]] && [[ ! -f $P1CHECK/.server-installed ]]; then
+                touch "$P1CHECK"/.server-installed
 				exec /usr/local/sbin/rhel-labs
 			fi
 
@@ -116,39 +117,39 @@ trap "rm -f $xx" 0 1 2 5 15
         		--menu "Install server.example.com" 25 75 25 \
         		"Exit"  "Exit the application" \
         		"Labs"  "Obtain graded lab execises based on chapters 1-16" \
-			    "Install VM"  "Install Server VM (NOT INSTALLED)" 2> $xx || echo "Failed to start rhel-labs stage 2" | __syslog
+			    "Install VM"  "Install Server VM (NOT INSTALLED)" 2> "$xx" || echo "Failed to start rhel-labs stage 2" | __syslog
 
 ### third stage of the dialog menu; same as the last menu however if .install-finished .server-installed and .rhel-labs-Server are present then allow the user to progress to the next state showing server.example.com as (INSTALLED)
 
-        elif [[ -f "$P1CHECK/.install-finished" ]] && [[ -f "$P1CHECK/.server-installed" ]] && [[ ! -f "$P1CHECK/.rhel-labs-Server" ]] && [[ -f $P4CHECK/server.qcow ]]; then
+        elif [[ -f $P1CHECK/.install-finished ]] && [[ -f $P1CHECK/.server-installed ]] && [[ ! -f $P1CHECK/.rhel-labs-Server ]] && [[ -f $P4CHECK/server.qcow ]]; then
 		USER="rhel-labs"
 		HOME=${var["DPATH"]}
-		virtcheck=`virtcheck 2>/dev/null` || virtcheck=${var["virtcheck"]}
+        virtcheck=$(virtcheck 2>/dev/null) || virtcheck=${var["virtcheck"]}
 		xx=`xx 2>/dev/null` || xx=${var["xx"]}stage3-$$
         trap "rm -f $xx" 0 1 2 5 15
-        cd $HOME
-        virtcheck=`eval $virtcheck`
+        cd "$HOME"
+        virtcheck=$(eval "$virtcheck")
 
-		if [[ "$virtcheck" == "0" ]] && [[ -e $P1CHECK/.server-installed ]]; then 
-			rm -f "$P1CHECK/.server-installed"
+		if [[ $virtcheck == 0 ]] && [[ -e $P1CHECK/.server-installed ]]; then 
+			rm -f "$P1CHECK"/.server-installed
 			exec /usr/local/sbin/rhel-labs
 		fi
 		$DIALOG --nocancel  --backtitle "| RHEL-LABS |" \
 			--menu "server.example.com is installed:" 25 75 25 \
 			"Exit"  "Exit the application" \
 			"Labs"  "Obtain graded lab execises based on chapters 1-16" \
-			"Server"  "Server VM (INSTALLED)" 2> $xx || rm -f /home/rhel-labs/rhel-labs/.install/.rhel-labs-Server
+			"Server"  "Server VM (INSTALLED)" 2> "$xx" || rm -f /home/rhel-labs/rhel-labs/.install/.rhel-labs-Server
 
 ### fourth stage of the dialog menu, if .install-finished .server-installed and .rhel-labs-Server are present then unlock.
 
-        elif [[ -f "$P1CHECK/.install-finished" ]] && [[ -f "$P1CHECK/.server-installed" ]] && [[ -f "$P1CHECK/.rhel-labs-Server" ]] && [[ -f $P4CHECK/server.qcow ]]; then
+        elif [[ -f $P1CHECK/.install-finished ]] && [[ -f $P1CHECK/.server-installed ]] && [[ -f $P1CHECK/.rhel-labs-Server ]] && [[ -f $P4CHECK/server.qcow ]]; then
 		        USER="rhel-labs"
                 HOME=${var["DPATH"]}
-                virtcheck=`virtcheck 2>/dev/null` || virtcheck=${var["virtcheck"]}
-                xx=`xx 2>/dev/null` || xx=${var["xx"]}stage4-$$
+                virtcheck=$(virtcheck 2>/dev/null) || virtcheck=${var["virtcheck"]}
+                xx=$(xx 2>/dev/null) || xx=${var["xx"]}stage4-$$
                 trap "rm -f $xx" 0 1 2 5 15
-                cd $HOME
-                virtcheck=`eval $virtcheck`
+                cd "$HOME"
+                virtcheck=$(eval "$virtcheck")
 
 		$DIALOG --nocancel  --backtitle "| RHEL-LABS |" \
 			--menu "server.example.com:" 25 75 25 \
@@ -158,7 +159,7 @@ trap "rm -f $xx" 0 1 2 5 15
 			"Stop" "Stop server" \
 			"Reboot" "Reboot server" \
 			"Snapshot" "Backup current server state" \
-            "Revert" "Revert server" 2> $xx || rm -f /home/rhel-labs/rhel-labs/.install/.rhel-labs-Server
+            "Revert" "Revert server" 2> "$xx" || rm -f /home/rhel-labs/rhel-labs/.install/.rhel-labs-Server
 
 ### if all else fails exit with unknown failure. 
     else 
@@ -167,8 +168,8 @@ trap "rm -f $xx" 0 1 2 5 15
 
 ### handoff from user selected input from the dialog menu; this is passed via stderr to variable `xx` and evaluated as choice then pushed to the multiple elif statement trigger a function.  
 	retval=$?
-	choice=`cat $xx`
-	case $retval in
+    choice=$(cat $xx)
+	case "$retval" in
   	0)
 	echo "$xx" | __syslog
 ### input
