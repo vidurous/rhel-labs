@@ -18,6 +18,8 @@ m5sum_server_post: .server.example.com_md5sum_post
 server_image: server.qcow
 virt1: server.example.com
 virt1_image: server.example.com.qcow
+virt2_image: server.example.com-current.qcow
+virt3_image: server.example.com-snap.qcow
 virt2: desktop.exmaple.com
 virt3: util.example.com
 virt4: hyper.example.com
@@ -67,11 +69,11 @@ vmdelete_server: sudo virsh undefine ${var["virt1"]}
 virtcheck: sudo virsh list --all | grep -o '"''"${var["virt1"]}"''"'| wc -l
 libvirtd_start: sudo systemctl start libvirtd
 libvirtd_enable: sudo systemctl enable libvirtd
-virtstop: sudo virsh --connect qemu:///system destroy ${var["virt1"]} 1> >(__syslog) 2>&1
+virtstop: sudo virsh --connect qemu:///system destroy ${var["virt1"]} &> >(__syslog)
 netcheck: sudo virsh net-list --all | grep rhel-labs | awk '"'''{print $1}'''"' | wc -l
-virtstart: sudo virsh --connect qemu:///system start ${var["virt1"]} 1> >(__syslog) 2>&1
+virtstart: sudo virsh --connect qemu:///system start ${var["virt1"]} &> >(__syslog)
 kill_console: ps auxx | grep -v grep | grep -v vim | egrep '"''"virt-viewer|console"''"' | grep server.example.com | awk '"'''{print $2}'''"' | xargs kill -9
-virtconsole: sudo virt-viewer ${var["virt1"]} 1> >(__syslog) 2>&1
+virtconsole: sudo virt-viewer ${var["virt1"]} &> >(__syslog)
 netdelete: sudo virsh net-destroy rhel-labs && sudo virsh net-undefine rhel-labs
 netcreate: sudo virsh net-create /usr/share/libvirt/networks/rhel-labs.xml
 netdefine: sudo virsh net-define /usr/share/libvirt/networks/rhel-labs.xml

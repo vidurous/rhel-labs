@@ -31,6 +31,8 @@ pv_tar=${var["pv_tar"]}
 DIALOGRC=${var["DIALOGRC"]}
 virt1=${var["virt1"]}
 virt1_image=${var["virt1_image"]}
+virt2_image=${var["virt2_image"]}
+virt3_image=${var["virt3_image"]}
 server_image=${var["server_image"]}
 download_servermd5=${var["download_servermd5"]}
 m5sum_server=${var["m5sum_server"]}
@@ -155,7 +157,8 @@ trap "rm -f $xx" 0 1 2 5 15
 			"Start" "Start server" \
 			"Stop" "Stop server" \
 			"Reboot" "Reboot server" \
-			"Reset" "Reset to default state" 2> $xx || rm -f /home/rhel-labs/rhel-labs/.install/.rhel-labs-Server
+			"Snapshot" "Backup current server state" \
+            "Revert" "Revert server" 2> $xx || rm -f /home/rhel-labs/rhel-labs/.install/.rhel-labs-Server
 
 ### if all else fails exit with unknown failure. 
     else 
@@ -209,7 +212,7 @@ trap "rm -f $xx" 0 1 2 5 15
 
 ### stop server.example.com
 	elif [ "$choice" = "Stop" ]; then
-        /usr/local/sbin/rhel-labs-functions.cfg  __serverstop 2> __syslog && exec /usr/local/sbin/rhel-labs || echo "failed to run __serverstop check functions" | __syslog && reset
+        /usr/local/sbin/rhel-labs-functions.cfg  __serverstop 2> __syslog wait; exec /usr/local/sbin/rhel-labs || echo "failed to run __serverstop check functions" | __syslog && reset
 
 ### start server.example.com
 	elif [ "$choice" = "Start" ]; then
@@ -220,8 +223,10 @@ trap "rm -f $xx" 0 1 2 5 15
         /usr/local/sbin/rhel-labs-functions.cfg  __serverconsole 2> __syslog wait; sleep 1 && exec /usr/local/sbin/rhel-labs || echo "failed to run __serverconsole check functions" | __syslog && reset
 
 ### reset internal snapshot to default for server.example.com
-    elif [ "$choice" = "Reset" ]; then
-        exec /usr/local/sbin/rhel-labs || echo "failed to run __serverstop check functions" | __syslog && reset
+    elif [ "$choice" = "Snapshot" ]; then
+        /usr/local/sbin/rhel-labs-functions.cfg snap wait; sleep 1 && exec /usr/local/sbin/rhel-labs || echo "failed to run shapshot check functions" | __syslog && reset
+    elif [ "$choice" = "Revert" ]; then
+        /usr/local/sbin/rhel-labs-functions.cfg revert wait; sleep 1 && exec /usr/local/sbin/rhel-labs || echo "failed to run shapshot check functions" | __syslog && reset
 
 ### else conditional that failed to parse user selection or selection is somehow invalid
 	else
