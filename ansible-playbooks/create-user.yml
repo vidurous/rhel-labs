@@ -1,0 +1,41 @@
+---
+# create rhel-user for lab configuration
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - user:
+        name: "rhel-labs"
+        comment: "Checking for rhel-labs user and removing if found..."
+        state: "present"
+        remove: "yes"
+        force: "yes"
+    - file:
+        path: /home/rhel-labs
+        state: absent
+    - file:
+        path: /etc/sudoers.d/rhel-labs
+        state: absent
+    - name: Removing any traces of server.example.com if they exist...
+      become_method: sudo
+      shell: "{{ virsh }}" 
+    - user:
+        seuser: "yes"
+        comment: "Creating user rhel-labs..."
+        append: "yes"
+        name: "rhel-labs"
+        shell: "/bin/bash"
+        system: "yes"
+        groups: "qemu"
+        password: "$1$xyz$I1.Xb6qvLmzMqzXpNuDcE1"  
+    - name: Granting sudo access for rhel-labs...   
+      become_method: sudo
+      shell: "{{ create_sudo }}" 
+    - file:
+        path: /etc/sudoers.d/rhel-labs
+        mode: 0440
+    - file: 
+        path: /home/rhel-labs
+        mode: 0755
+    - name: Clone rhel-labs from github...
+      become_method: "sudo"
+      shell: "{{ clone_git }}"

@@ -209,7 +209,7 @@ trap "rm -f $xx" 0 1 2 5 15
 
 ### stop server.example.com
 	elif [ "$choice" = "Stop" ]; then
-        /usr/local/sbin/rhel-labs-functions.cfg  __serverstop 2> __syslog wait; exec /usr/local/sbin/rhel-labs || echo "failed to run __serverstop check functions" | __syslog && reset
+        /usr/local/sbin/rhel-labs-functions.cfg  __serverstop 2> __syslog && exec /usr/local/sbin/rhel-labs || echo "failed to run __serverstop check functions" | __syslog && reset
 
 ### start server.example.com
 	elif [ "$choice" = "Start" ]; then

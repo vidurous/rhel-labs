@@ -67,11 +67,11 @@ vmdelete_server: sudo virsh undefine ${var["virt1"]}
 virtcheck: sudo virsh list --all | grep -o '"''"${var["virt1"]}"''"'| wc -l
 libvirtd_start: sudo systemctl start libvirtd
 libvirtd_enable: sudo systemctl enable libvirtd
-virtstop: sudo virsh --connect qemu:///system destroy ${var["virt1"]} &> >(__syslog)
+virtstop: sudo virsh --connect qemu:///system destroy ${var["virt1"]} 1> >(__syslog) 2>&1
 netcheck: sudo virsh net-list --all | grep rhel-labs | awk '"'''{print $1}'''"' | wc -l
-virtstart: sudo virsh --connect qemu:///system start ${var["virt1"]} &> >(__syslog)
+virtstart: sudo virsh --connect qemu:///system start ${var["virt1"]} 1> >(__syslog) 2>&1
 kill_console: ps auxx | grep -v grep | grep -v vim | egrep '"''"virt-viewer|console"''"' | grep server.example.com | awk '"'''{print $2}'''"' | xargs kill -9
-virtconsole: sudo virt-viewer ${var["virt1"]} &> >(__syslog)
+virtconsole: sudo virt-viewer ${var["virt1"]} 1> >(__syslog) 2>&1
 netdelete: sudo virsh net-destroy rhel-labs && sudo virsh net-undefine rhel-labs
 netcreate: sudo virsh net-create /usr/share/libvirt/networks/rhel-labs.xml
 netdefine: sudo virsh net-define /usr/share/libvirt/networks/rhel-labs.xml
