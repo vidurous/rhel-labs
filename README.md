@@ -13,7 +13,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 ```
 ## Required rpm packages:
   
-# dnf install git wget pv dialog findutils gawk sed grep coreutils -y && dnf group install virtualization -y
+# dnf install git wget rsync pv dialog findutils gawk sed grep coreutils -y && dnf group install virtualization -y
 ```
 
 ```
@@ -26,7 +26,7 @@ Subproccess are used in a controlled fashion handed off when navigating through 
 ```
 ## Required rpm packages:
 
-# yum install git wget pv dialog findutils gawk sed grep coreutils -y && yum group install virtualization -y
+# yum install git wget rsync pv dialog findutils gawk sed grep coreutils -y && yum group install virtualization -y
 ```
 ```
 ## Inital checks should generate /dev/random and /dev/urandom (used for random mac address assignment) however if this fails manaul creation is needed.
