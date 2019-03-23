@@ -1,9 +1,0 @@
-[rhel_labs]
-127.0.0.1
-localhost
-bugatti.irondung.net
-
-[rhel_labs:vars]
-virsh="virsh destroy server.example.com; sleep 1 ;virsh undefine server.example.com; sleep 1 ;virsh net-destroy rhel-labs; sleep 1"
-create_sudo=" echo 'rhel-labs ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart libvirtd, /usr/bin/systemctl status libvirtd, /usr/bin/systemctl stop libvirtd, /usr/bin/systemctl start libvirtd, /usr/bin/virsh, /usr/bin/virt-install, /usr/bin/virt-manager, /etc/sudoers.d/rhel-labs, /usr/bin/virt-viewer server.example.com, /usr/bin/chown'| tee -a /etc/sudoers.d/rhel-labs"
-clone_git="cd /home/rhel-labs && git clone https://github.com/vidurous/rhel-labs && echo '/usr/local/sbin/rhel-labs' | tee -a /home/rhel-labs/.bashrc && chown -R rhel-labs:qemu /home/rhel-labs/rhel-labs"
