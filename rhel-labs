@@ -221,6 +221,7 @@ trap "rm -f $xx" 0 1 2 5 15
 ### reset internal snapshot to default for server.example.com
     elif [ "$choice" = "Snapshot" ]; then
         /usr/local/sbin/rhel-labs-functions.cfg snap wait; sleep 1 && exec /usr/local/sbin/rhel-labs || echo "failed to run shapshot check functions" | __syslog && reset
+    
     elif [ "$choice" = "Revert" ]; then
         /usr/local/sbin/rhel-labs-functions.cfg revert wait; sleep 1 && exec /usr/local/sbin/rhel-labs || echo "failed to run shapshot check functions" | __syslog && reset
 ### else conditional that failed to parse user selection or selection is somehow invalid
