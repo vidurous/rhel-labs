@@ -15,9 +15,9 @@
     - file:
         path: /etc/sudoers.d/rhel-labs
         state: absent
-    - name: Removing any traces of server.example.com if they exist...
-      become_method: sudo
-      shell: "{{ virsh }}" 
+        #    - name: Removing any traces of server.example.com if they exist...
+        #      become_method: "sudo"
+        #      shell: "{{ virsh }}" 
     - user:
         seuser: "yes"
         comment: "Creating user rhel-labs..."

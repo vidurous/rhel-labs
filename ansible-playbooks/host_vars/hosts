@@ -1,6 +1,7 @@
 [rhel_labs]
 127.0.0.1
-
+localhost
+bugatti.irondung.net
 
 [rhel_labs:vars]
 virsh="virsh destroy server.example.com; sleep 1 ;virsh undefine server.example.com; sleep 1 ;virsh net-destroy rhel-labs; sleep 1"

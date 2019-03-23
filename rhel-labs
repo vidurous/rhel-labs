@@ -116,8 +116,7 @@ trap "rm -f $xx" 0 1 2 5 15
 		$DIALOG --no-kill --nocancel  --backtitle "| RHEL-LABS |" \
         		--menu "Install server.example.com" 25 75 25 \
         		"Exit"  "Exit the application" \
-        		"Labs"  "Obtain graded lab execises based on chapters 1-16" \
-			    "Install VM"  "Install Server VM (NOT INSTALLED)" 2> "$xx" || echo "Failed to start rhel-labs stage 2" | __syslog
+			"Install VM"  "Install Server VM (NOT INSTALLED)" 2> "$xx" || echo "Failed to start rhel-labs stage 2" | __syslog
 
 ### third stage of the dialog menu; same as the last menu however if .install-finished .server-installed and .rhel-labs-Server are present then allow the user to progress to the next state showing server.example.com as (INSTALLED)
 
@@ -137,7 +136,6 @@ trap "rm -f $xx" 0 1 2 5 15
 		$DIALOG --nocancel  --backtitle "| RHEL-LABS |" \
 			--menu "server.example.com is installed:" 25 75 25 \
 			"Exit"  "Exit the application" \
-			"Labs"  "Obtain graded lab execises based on chapters 1-16" \
 			"Server"  "Server VM (INSTALLED)" 2> "$xx" || rm -f /home/rhel-labs/rhel-labs/.install/.rhel-labs-Server
 
 ### fourth stage of the dialog menu, if .install-finished .server-installed and .rhel-labs-Server are present then unlock.
@@ -199,9 +197,6 @@ trap "rm -f $xx" 0 1 2 5 15
 ### install server.example.com from the second stage dialog menu;
 	elif [ "$choice" = "Install VM" ]; then
         /usr/local/sbin/rhel-labs-functions.cfg server_1 && /usr/local/sbin/rhel-labs-functions.cfg server_2 && /usr/local/sbin/rhel-labs-functions.cfg server_3 && /usr/local/sbin/rhel-labs-functions.cfg server_4 && sleep 5 && exec /usr/local/sbin/rhel-labs || echo "Failed to install VM Server stage 1 through 4" | __syslog
-### not implemented; labs menu
-	elif [ "$choice" = "Labs" ]; then
-        /usr/local/sbin/rhel-labs-labs || echo "Entering the /usr/local/sbin/rhel-labs-labs menu has failed, please check the /usr/local/sbin/rhel-labs script" | __syslog
 
 ### sever menu changes dynamically for statefile changes;
 	elif [ "$choice" = "Server" ]; then
@@ -228,7 +223,6 @@ trap "rm -f $xx" 0 1 2 5 15
         /usr/local/sbin/rhel-labs-functions.cfg snap wait; sleep 1 && exec /usr/local/sbin/rhel-labs || echo "failed to run shapshot check functions" | __syslog && reset
     elif [ "$choice" = "Revert" ]; then
         /usr/local/sbin/rhel-labs-functions.cfg revert wait; sleep 1 && exec /usr/local/sbin/rhel-labs || echo "failed to run shapshot check functions" | __syslog && reset
-
 ### else conditional that failed to parse user selection or selection is somehow invalid
 	else
 		echo "Failed to call /usr/local/sbin/rhel-labs " | __syslog && exit || exit
